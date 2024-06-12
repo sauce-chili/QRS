@@ -15,6 +15,7 @@ struct CompareExprNodeTestParams {
     std::string testName;
     std::function<std::unique_ptr<ExprNode>()> createExpr1;
     std::function<std::unique_ptr<ExprNode>()> createExpr2;
+    std::string pathToDiff;
     bool expectedResult;
 };
 
@@ -28,13 +29,17 @@ TEST_P(CompareExprNodeTestDDT, CompareExprTreeTest) {
     unique_ptr<ExprNode> expr1 = params.createExpr1();
     unique_ptr<ExprNode> expr2 = params.createExpr2();
 
+
     bool expected = params.expectedResult;
-    bool actual = expr1->compareExprTree(expr2.get());
+    string expectedDiff = params.pathToDiff;
+    string actualDiff = "";
+    bool actual = expr1->compareExprTree(expr2.get(), actualDiff);
 
     EXPECT_EQ(actual, expected);
+    EXPECT_EQ(actualDiff, expectedDiff);
 }
 
-vector<CompareExprNodeTestParams> provideCompareSimpleBinaryArithmeticTreeTestCases() {
+static vector<CompareExprNodeTestParams> provideCompareSimpleBinaryArithmeticTreeTestCases() {
     const vector<pair<
             EXPR_NODE_TYPE, string
     >
@@ -56,7 +61,7 @@ vector<CompareExprNodeTestParams> provideCompareSimpleBinaryArithmeticTreeTestCa
     };
     vector<CompareExprNodeTestParams> testCases;
     // создаем простые деревья бинарных арифметических операции
-    for (const auto& op: binaryOperators) {
+    for (const auto &op: binaryOperators) {
         testCases.push_back({
                                     "Compare_simple_arithmetic_tree_with_root_" + op.second,
                                     [op]() -> std::unique_ptr<ExprNode> {
@@ -73,13 +78,14 @@ vector<CompareExprNodeTestParams> provideCompareSimpleBinaryArithmeticTreeTestCa
                                                 std::make_unique<Operand>("b").release()
                                         );
                                     },
+                                    "",
                                     true
                             });
     }
     return testCases;
 }
 
-vector<CompareExprNodeTestParams> provideCompareSimpleBinaryLogicalTreeTestCases() {
+static vector<CompareExprNodeTestParams> provideCompareSimpleBinaryLogicalTreeTestCases() {
     // Создаем простые бинарные деревья для каждого логического оператора
     return {
             {
@@ -96,6 +102,7 @@ vector<CompareExprNodeTestParams> provideCompareSimpleBinaryLogicalTreeTestCases
                                 std::make_unique<Operand>("b").release()
                         );
                     },
+                    "",
                     true
             },
             {
@@ -112,12 +119,13 @@ vector<CompareExprNodeTestParams> provideCompareSimpleBinaryLogicalTreeTestCases
                                 std::make_unique<Operand>("b").release()
                         );
                     },
+                    "",
                     true
             }
     };
 }
 
-vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
+static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
     return {
             // выражение a[len * (n - 1)] для обоих деревьев
             {
@@ -150,6 +158,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 ).release()
                         );
                     },
+                    "",
                     true
             },
             // Test: (a[i] >> n) / b[j] vs (a[j] >> n) / b[i]
@@ -189,6 +198,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 ).release()
                         );
                     },
+                    "",
                     true
             },
             // Test: - a vs - a
@@ -206,6 +216,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 make_unique<Operand>("a").release()
                         );
                     },
+                    "",
                     true
             },
             // Test: - (b - a * arr[i]) vs - (a - b * arr[i])
@@ -245,6 +256,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 ).release()
                         );
                     },
+                    "- -> - -> a",
                     false
             },
             // Test: - (a * b + (n >> arr[i])) vs - (a * b + (n >> arr[i]))
@@ -292,6 +304,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 ).release()
                         );
                     },
+                    "",
                     true
             },
             // Logical Expression (a && b || c && b) vs Logical Expression (a && b || c && b)
@@ -321,6 +334,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 ).release()
                         );
                     },
+                    "",
                     true
             },
             // Logical Expression (b && a || c && b) vs Logical Expression (a && b || c && b)
@@ -350,6 +364,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 ).release()
                         );
                     },
+                    "|| -> && -> a",
                     false
             },
             // Logical NOT (!a) vs Logical NOT (!a)
@@ -365,6 +380,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<Operand>("a").release()
                         );
                     },
+                    "",
                     true
             },
             // Logical NOT (!a) vs Logical NOT (!b)
@@ -380,6 +396,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<Operand>("b").release()
                         );
                     },
+                    "! -> b",
                     false
             },
             // Logical NOT (!(a && b || c)) vs Logical NOT (!(a && b || c))
@@ -407,6 +424,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 ).release()
                         );
                     },
+                    "",
                     true
             },
             // Arithmetic Expression (a + 8) vs Arithmetic Expression (a + 8)
@@ -426,6 +444,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("8").release()
                         );
                     },
+                    "",
                     true
             },
             // Arithmetic Expression (a + 8.2) vs Arithmetic Expression (a + 8.2)
@@ -445,6 +464,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("8.2").release()
                         );
                     },
+                    "",
                     true
             },
             // Arithmetic Expression (a + 8.0) vs Arithmetic Expression (a + 8)
@@ -464,6 +484,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("8").release()
                         );
                     },
+                    "",
                     true
             },
             // Binary Arithmetic Expression (a + 8) vs Binary Arithmetic Expression (a + 0b1000)
@@ -483,6 +504,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("0b1000").release()
                         );
                     },
+                    "",
                     true
             },
             // Binary Arithmetic Expression (a ^ 8) vs Binary Arithmetic Expression (a ^ 010)
@@ -502,6 +524,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("010").release()
                         );
                     },
+                    "",
                     true
             },
             // Binary Arithmetic Expression (a == 17) vs Binary Arithmetic Expression (a == 0x11)
@@ -521,6 +544,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("0x11").release()
                         );
                     },
+                    "",
                     true
             },
             // Binary Arithmetic Expression (a != 8) vs Binary Arithmetic Expression (a != 0x12)
@@ -540,6 +564,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("0x12").release()
                         );
                     },
+                    "",
                     true
             },
             // Binary Arithmetic Expression (a + 8) vs Binary Arithmetic Expression (a + 001)
@@ -559,6 +584,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("001").release()
                         );
                     },
+                    "",
                     true
             },
             // Arithmetic Expression (a % true) vs Arithmetic Expression (a % true)
@@ -578,6 +604,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("true").release()
                         );
                     },
+                    "",
                     true
             },
             {
@@ -596,6 +623,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("false").release()
                         );
                     },
+                    "% -> false",
                     false
             },
             // Logical Expression (a && true) vs Logical Expression (a && true)
@@ -613,6 +641,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("true").release()
                         );
                     },
+                    "",
                     true
             },
             // Logical Expression (a || true) vs Logical Expression (a || false)
@@ -630,6 +659,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("false").release()
                         );
                     },
+                    "|| -> false",
                     false // Ожидаемое значение: false, так как левая и правая части не эквивалентны
             },
             // Logical Expression (a && 8.2) vs Logical Expression (a && 8.2)
@@ -647,6 +677,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("8.2").release()
                         );
                     },
+                    "",
                     true
             },
             // Unary Expression (- true) vs Unary Expression (- false)
@@ -664,6 +695,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("false").release()
                         );
                     },
+                    "- -> false",
                     false // Ожидаемое значение: false, так как операнды не эквивалентны
             },
             // Unary Expression (- 8.2) vs Unary Expression (- 8.2)
@@ -681,6 +713,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("8.2").release()
                         );
                     },
+                    "",
                     true // Ожидаемое значение: true, так как оба выражения эквивалентны
             },
             // (a && b) || !(d + arr[i]) && 0b10 vs (a && b) || !(d + arr[i]) && 0b10
@@ -728,6 +761,7 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 ).release()
                         );
                     },
+                    "",
                     true // Ожидаемое значение: true, так как оба выражения эквивалентны
             },
             // (-8.2 || b[i]) != (x && ! a[i]) vs (-8.2 || a[i]) != (x && ! b[i])
@@ -775,13 +809,14 @@ vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
                                 ).release()
                         );
                     },
+                    "!= -> || -> b",
                     false
             }
     };
 }
 
 
-vector<CompareExprNodeTestParams> provideTestCases() {
+static vector<CompareExprNodeTestParams> provideTestCases() {
 
     auto tests = {
             provideCompareSimpleBinaryLogicalTreeTestCases(),
