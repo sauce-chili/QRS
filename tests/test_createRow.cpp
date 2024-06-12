@@ -11,18 +11,17 @@
 #include "builders/ExprNodeBuilder.h"
 #include "exception/BuildExceptions.h"
 #include "truthtablegererator/Generator.h"
-#include <bitset>
+#include "TestUtils.h"
 
 
 using namespace std;
-using ExceptionList = std::list<Exception>;
 
 struct CreateRowTestParams {
     string testName;
     unsigned short args;
     unsigned short countArgs;
     bool result;
-    string expectedRow;
+    vector<string> expectedRowValues;
 };
 
 class CreateRowTestDDT
@@ -32,44 +31,48 @@ class CreateRowTestDDT
 TEST_P(CreateRowTestDDT, CreateRowTest) {
     auto params = GetParam();
 
-    string actualResult = TruthTableGenerator::createRow(
+    string actualRow = TruthTableGenerator::createRow(
             params.args,
             params.countArgs,
             params.result
     );
-    string expectedResult = params.expectedRow;
+    vector<string> actualRowValues = extractRowData(actualRow);
+    vector<string> expectedRowValues = params.expectedRowValues;
 
-    EXPECT_EQ(actualResult, expectedResult);
+    EXPECT_EQ(expectedRowValues, actualRowValues);;
 }
 
-vector<CreateRowTestParams> testCases = {
+const vector<CreateRowTestParams> commonTestCases = {
         {
-            "One_parameter_and_result_expression_is_true",
-            0b1,
-            1,
-            true,
-            "<tr><td>0</td><td>0</td></tr>"
+                "One_parameter_and_result_expression_is_true",
+                0b1,
+                1,
+                true,
+                //"<tr><td>0</td><td>0</td></tr>"
+                {"1", "1"}
         },
         {
-            "Multiple_parameters_and_result_expression_is_false",
-            0b001,
-            3,
-            false,
-                "<tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>"
+                "Multiple_parameters_and_result_expression_is_false",
+                0b001,
+                3,
+                false,
+                //"<tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>"
+                {"1", "0", "0", "0"}
         },
         {
-            "Max_numbers_of_parameters_and_result_is_false",
-            0b1011011011,
-            10,
-            false,
-            "<tr><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td>0</tr>"
+                "Max_numbers_of_parameters_and_result_is_false",
+                0b1011011011,
+                10,
+                false,
+                // "<tr><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td>0</tr>"
+                {"1", "0", "1", "1", "0", "1", "1", "0", "1", "1", "1", "0"}
         }
 };
 
 INSTANTIATE_TEST_SUITE_P(
         CreateRowTest,
         CreateRowTestDDT,
-        ::testing::ValuesIn(testCases),
+        ::testing::ValuesIn(commonTestCases),
         [](const testing::TestParamInfo<CreateRowTestParams> &info) {
             return info.param.testName;
         }
