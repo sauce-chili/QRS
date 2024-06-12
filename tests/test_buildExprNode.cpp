@@ -9,6 +9,7 @@
 #include "utils/BuilderUtils.h"
 #include "builders/ExprNodeBuilder.h"
 #include "exception/BuildExceptions.h"
+#include "TestUtils.h"
 #include <memory>
 
 using namespace std;
@@ -39,27 +40,21 @@ TEST_P(BuildExprNodeTest, BuildExprTreeTest) {
     string inStr = params.buildString;
     ExprNode *actualTree = ExprNodeBuilder::buildExprTree(inStr, actualExceptions);
 
-    bool result = false;
-
-    string actualDiff = "";
-    string expectedDiff = "";
+    bool result;
 
     if (not expectedExceptions->empty()) {
         result = std::equal(expectedExceptions->begin(), expectedExceptions->end(), actualExceptions.end());
         EXPECT_TRUE(result);
     } else {
+        string actualDiff = "";
+        string expectedDiff = "";
+
         result = expectedTree->compareExprTree(actualTree, actualDiff);
         EXPECT_TRUE(result);
-        // ------------------------ удаляем белые разделители ------------------------------------
-        actualDiff.erase(
-                std::remove_if(actualDiff.begin(), actualDiff.end(),
-                               [](unsigned char c) { return std::isspace(c); }),
-                actualDiff.end());
-        expectedDiff.erase(
-                std::remove_if(expectedDiff.begin(), expectedDiff.end(),
-                               [](unsigned char c) { return std::isspace(c); }),
-                expectedDiff.end());
-        // --------------------------------------------------------------------------------------
+
+        removeWhiteSeparators(actualDiff);
+        removeWhiteSeparators(expectedDiff);
+
         EXPECT_EQ(actualDiff, expectedDiff);
     }
 }

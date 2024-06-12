@@ -6,6 +6,7 @@
 #include "utils/BuilderUtils.h"
 #include "builders/ExprNodeBuilder.h"
 #include "exception/BuildExceptions.h"
+#include "TestUtils.h"
 
 using namespace std;
 
@@ -31,16 +32,8 @@ TEST_P(ExprNodeToStringTest, ParseExprNodeTreeToStringTest) {
     string actual = tree->toString();
     string expected = params.expected;
 
-    // ------------------------ удаляем белые разделители ------------------------------------
-    actual.erase(
-            std::remove_if(actual.begin(), actual.end(),
-                           [](unsigned char c) { return std::isspace(c); }),
-            actual.end());
-    expected.erase(
-            std::remove_if(expected.begin(), expected.end(),
-                           [](unsigned char c) { return std::isspace(c); }),
-            expected.end());
-    // ---------------------------------------------------------------------------------------
+    removeWhiteSeparators(actual);
+    removeWhiteSeparators(expected);
 
     EXPECT_EQ(actual, expected);
 }
