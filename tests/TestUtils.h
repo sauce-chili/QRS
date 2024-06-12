@@ -7,6 +7,10 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
+#include "exception/BuildExceptions.h"
+
+using ExceptionList = std::list<Exception>;
 
 void removeWhiteSeparators(std::string &s);
 
