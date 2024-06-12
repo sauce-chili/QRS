@@ -41,12 +41,27 @@ TEST_P(BuildExprNodeTest, BuildExprTreeTest) {
 
     bool result = false;
 
+    string actualDiff = "";
+    string expectedDiff = "";
+
     if (not expectedExceptions->empty()) {
         result = std::equal(expectedExceptions->begin(), expectedExceptions->end(), actualExceptions.end());
+        EXPECT_TRUE(result);
     } else {
-        result = expectedTree->compareExprTree(actualTree);
+        result = expectedTree->compareExprTree(actualTree, actualDiff);
+        EXPECT_TRUE(result);
+        // ------------------------ удаляем белые разделители ------------------------------------
+        actualDiff.erase(
+                std::remove_if(actualDiff.begin(), actualDiff.end(),
+                               [](unsigned char c) { return std::isspace(c); }),
+                actualDiff.end());
+        expectedDiff.erase(
+                std::remove_if(expectedDiff.begin(), expectedDiff.end(),
+                               [](unsigned char c) { return std::isspace(c); }),
+                expectedDiff.end());
+        // --------------------------------------------------------------------------------------
+        EXPECT_EQ(actualDiff, expectedDiff);
     }
-    EXPECT_TRUE(result);
 }
 
 vector<BuildExprNodeTestParams> provideBuildSimpleArithmeticalTreeTestCases() {
@@ -242,7 +257,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
     };
 };
 
-vector<BuildExprNodeTestParams> provideTestCases() {
+static vector<BuildExprNodeTestParams> provideTestCases() {
 
     auto tests = {
             provideBuildSimpleArithmeticalTreeTestCases(),
