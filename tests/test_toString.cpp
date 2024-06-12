@@ -10,8 +10,6 @@
 
 using namespace std;
 
-using ExceptionList = std::list<Exception>;
-
 struct ExprNodeToStringTestsParam {
     string testName;
     string buildString;

@@ -8,7 +8,6 @@
 #include "TestUtils.h"
 
 using namespace std;
-using ExceptionList = std::list<Exception>;
 
 struct GetParametersTestsParam {
     string testName;

@@ -5,9 +5,9 @@
 #include "entities/ExprNode.h"
 #include "builders/ExprNodeBuilder.h"
 #include "exception/BuildExceptions.h"
+#include "TestUtils.h"
 
 using namespace std;
-using ExceptionList = std::list<Exception>;
 
 struct CalculateTestParams {
     string testName;

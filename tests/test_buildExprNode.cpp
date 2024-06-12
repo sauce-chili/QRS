@@ -14,8 +14,6 @@
 
 using namespace std;
 
-using ExceptionList = std::list<Exception>;
-
 unique_ptr<ExceptionList> createEmptyExceptionList() {
     return make_unique<ExceptionList>();
 }
