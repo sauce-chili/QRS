@@ -65,18 +65,21 @@ TEST_P(GetParametersTestDDT, GetParametersTest) {
 }
 
 const vector<GetParametersTestsParam> commonTestCases = {
+        // TEST 1
         {
                 // false && -0xFA+5
                 "Tree_without_parameters_only_const",
                 "false 0xFA -$ 5 + &&",
                 vector<pair<string, int>>()
         },
+        // TEST 2
         {
                 //  false && -0xFA+a
                 "Tree_contains_one_parameter_and_one_const",
                 "false 0xFA -$ a + &&",
                 vector<pair<string, int>>{{"(-0xFA)+a", 1}}
         },
+        // TEST 3
         {
                 // !((a[i] * b) && ((-0xFA) + 5)) || (x && b*a[i])
                 "Tree_with_commutative_parameter",
@@ -86,6 +89,7 @@ const vector<GetParametersTestsParam> commonTestCases = {
                         {"x",      2}
                 }
         },
+        // TEST 4
         {
                 // !((a[i] * b) && ((-0xFA) + 5)) || (x && b*i[a])
                 "Tree_with_parameters_similar_to_commutative",
@@ -96,9 +100,10 @@ const vector<GetParametersTestsParam> commonTestCases = {
                         {"b*i[a]", 3}
                 }
         },
+        // TEST 5
         {
                 // !((a[i]*b)&&((-0xFA) + 5)) || (x && ((b || a[i]) ^ (c+k)))
-                "Complex_test",
+                "Logical_operation_nested_within_arithmetical_subtree",
                 "a i [] b * 0xFA -$ 5 + && ! b a i [] || c k + ^ ||",
                 vector<pair<string, int>>{
                         {"a[i]*b",        1},

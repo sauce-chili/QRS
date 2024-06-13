@@ -33,12 +33,14 @@ TEST_P(CompareExprNodeTestDDT, CompareExprTreeTest) {
     bool expected = params.expectedResult;
     string expectedDiff = params.pathToDiff;
     string actualDiff = "";
-    bool actual = expr1->compareExprTree(expr2.get(), actualDiff);
+    string buffer = "";
+    bool actual = expr1->compareExprTree(expr2.get(), actualDiff, buffer);
 
     EXPECT_EQ(actual, expected);
     EXPECT_EQ(actualDiff, expectedDiff);
 }
 
+// TEST 7
 static vector<CompareExprNodeTestParams> provideCompareSimpleBinaryArithmeticTreeTestCases() {
     const vector<pair<
             EXPR_NODE_TYPE, string
@@ -85,6 +87,7 @@ static vector<CompareExprNodeTestParams> provideCompareSimpleBinaryArithmeticTre
     return testCases;
 }
 
+// TEST 1
 static vector<CompareExprNodeTestParams> provideCompareSimpleBinaryLogicalTreeTestCases() {
     // Создаем простые бинарные деревья для каждого логического оператора
     return {
@@ -127,6 +130,7 @@ static vector<CompareExprNodeTestParams> provideCompareSimpleBinaryLogicalTreeTe
 
 static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases() {
     return {
+            // TEST 2
             // выражение a[len * (n - 1)] для обоих деревьев
             {
                     "Comparing_a_complex_arithmetic_tree_1",
@@ -161,6 +165,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 3
             // Test: (a[i] >> n) / b[j] vs (a[j] >> n) / b[i]
             {
                     "Comparing_a_complex_arithmetic_tree_2",
@@ -198,9 +203,10 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                                 ).release()
                         );
                     },
-                    "",
-                    true
+                    "/ -> >> -> [] -> j",
+                    false
             },
+            // TEST 4
             // Test: - a vs - a
             {
                     "Comparison_of_a_simple_unary_operation_tree",
@@ -219,6 +225,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 5
             // Test: - (b - a * arr[i]) vs - (a - b * arr[i])
             {
                     "Comparison_of_complex_unary_trees_1",
@@ -259,6 +266,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "- -> - -> a",
                     false
             },
+            // TEST 6
             // Test: - (a * b + (n >> arr[i])) vs - (a * b + (n >> arr[i]))
             {
                     "Comparison_of_complex_unary_trees_2",
@@ -307,6 +315,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 8
             // Logical Expression (a && b || c && b) vs Logical Expression (a && b || c && b)
             {
                     "Comparison_of_complex_binary_logic_trees_1",
@@ -337,6 +346,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 9
             // Logical Expression (b && a || c && b) vs Logical Expression (a && b || c && b)
             {
                     "Comparison_of_complex_binary_logic_trees_2",
@@ -367,6 +377,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "|| -> && -> a",
                     false
             },
+            // TEST 10
             // Logical NOT (!a) vs Logical NOT (!a)
             {
                     "Comparison_of_unary_logical_operations_1",
@@ -383,6 +394,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 11
             // Logical NOT (!a) vs Logical NOT (!b)
             {
                     "Comparison_of_unary_logical_operations_2",
@@ -399,6 +411,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "! -> b",
                     false
             },
+            // TEST 12
             // Logical NOT (!(a && b || c)) vs Logical NOT (!(a && b || c))
             {
                     "Comparison_of_complex_unary_logical_operators",
@@ -427,6 +440,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 13
             // Arithmetic Expression (a + 8) vs Arithmetic Expression (a + 8)
             {
                     "Comparison_of_an_arithmetic_tree_with_a_numeric_constant",
@@ -447,6 +461,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 14
             // Arithmetic Expression (a + 8.2) vs Arithmetic Expression (a + 8.2)
             {
                     "Comparison_of_arithmetic_trees_containing_fractional_numeric_constants",
@@ -467,6 +482,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 15
             // Arithmetic Expression (a + 8.0) vs Arithmetic Expression (a + 8)
             {
                     "Comparison_of_binary_arithmetic_trees_containing_numeric_constants_written_in_different_formats_1",
@@ -487,6 +503,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 16
             // Binary Arithmetic Expression (a + 8) vs Binary Arithmetic Expression (a + 0b1000)
             {
                     "Comparison_of_binary_arithmetic_trees_containing_numeric_constants_written_in_different_formats_2",
@@ -507,6 +524,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 17
             // Binary Arithmetic Expression (a ^ 8) vs Binary Arithmetic Expression (a ^ 010)
             {
                     "Comparison_of_binary_arithmetic_trees_containing_numeric_constants_written_in_different_formats_3",
@@ -527,6 +545,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 18
             // Binary Arithmetic Expression (a == 17) vs Binary Arithmetic Expression (a == 0x11)
             {
                     "Comparison_of_binary_arithmetic_trees_containing_numeric_constants_written_in_different_formats_4",
@@ -547,6 +566,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 19
             // Binary Arithmetic Expression (a != 8) vs Binary Arithmetic Expression (a != 0x12)
             {
                     "Comparison_of_binary_arithmetic_trees_containing_numeric_constants_written_in_different_formats_5",
@@ -567,6 +587,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 20
             // Binary Arithmetic Expression (a + 8) vs Binary Arithmetic Expression (a + 001)
             {
                     "Comparison_of_binary_arithmetic_trees_containing_numeric_constants_written_in_different_formats_6",
@@ -587,6 +608,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 21
             // Arithmetic Expression (a % true) vs Arithmetic Expression (a % true)
             {
                     "Comparison_of_binary_arithmetic_trees_containing_logical_constants_1",
@@ -607,6 +629,8 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 22
+            // Arithmetic Expression (a % true) vs Arithmetic Expression (a % false)
             {
                     "Comparison_of_binary_arithmetic_trees_containing_logical_constants_2",
                     []() -> std::unique_ptr<ExprNode> {
@@ -627,6 +651,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     false
             },
             // Logical Expression (a && true) vs Logical Expression (a && true)
+            // TEST 23
             {
                     "Comparison_of_binary_logic_trees_containing_logical_constants_1",
                     []() -> std::unique_ptr<ExprNode> {
@@ -644,6 +669,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 24
             // Logical Expression (a || true) vs Logical Expression (a || false)
             {
                     "Comparison_of_binary_logic_trees_containing_logical_constants_2",
@@ -662,6 +688,24 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "|| -> false",
                     false // Ожидаемое значение: false, так как левая и правая части не эквивалентны
             },
+            // TEST 25
+            // Logical Expression (! true) vs Logical Expression (! false)
+            {
+                    "Comparison_of_unary_logical_operations_contains_logical_constant",
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<LogicalNodeNOT>(
+                                std::make_unique<ConstantExprNode>("true").release()
+                        );
+                    },
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<LogicalNodeNOT>(
+                                std::make_unique<ConstantExprNode>("false").release()
+                        );
+                    },
+                    "! -> false",
+                    false
+            },
+            // TEST 26
             // Logical Expression (a && 8.2) vs Logical Expression (a && 8.2)
             {
                     "Comparison_of_binary_logic_trees_containing_numeric_constants",
@@ -680,6 +724,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true
             },
+            // TEST 27
             // Unary Expression (- true) vs Unary Expression (- false)
             {
                     "Comparison_of_unary_arithmetic_trees_containing_Boolean_constants",
@@ -698,6 +743,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "- -> false",
                     false // Ожидаемое значение: false, так как операнды не эквивалентны
             },
+            // TEST 28
             // Unary Expression (- 8.2) vs Unary Expression (- 8.2)
             {
                     "Comparison_of_unary_arithmetic_trees_containing_numeric_constants",
@@ -716,6 +762,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true // Ожидаемое значение: true, так как оба выражения эквивалентны
             },
+            // TEST 29
             // (a && b) || !(d + arr[i]) && 0b10 vs (a && b) || !(d + arr[i]) && 0b10
             {
                     "Comparison_of_complex_combination_trees_1",
@@ -764,6 +811,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                     "",
                     true // Ожидаемое значение: true, так как оба выражения эквивалентны
             },
+            // TEST 30
             // (-8.2 || b[i]) != (x && ! a[i]) vs (-8.2 || a[i]) != (x && ! b[i])
             {
                     "Comparison_of_complex_combination_trees_2",
@@ -809,7 +857,7 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                                 ).release()
                         );
                     },
-                    "!= -> || -> b",
+                    "!= -> || -> a",
                     false
             }
     };

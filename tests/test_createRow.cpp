@@ -43,6 +43,7 @@ TEST_P(CreateRowTestDDT, CreateRowTest) {
 }
 
 const vector<CreateRowTestParams> commonTestCases = {
+        // TEST 1
         {
                 "One_parameter_and_result_expression_is_true",
                 0b1,
@@ -51,6 +52,7 @@ const vector<CreateRowTestParams> commonTestCases = {
                 //"<tr><td>0</td><td>0</td></tr>"
                 {"1", "1"}
         },
+        // TEST 2
         {
                 "Multiple_parameters_and_result_expression_is_false",
                 0b001,
@@ -59,6 +61,7 @@ const vector<CreateRowTestParams> commonTestCases = {
                 //"<tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>"
                 {"1", "0", "0", "0"}
         },
+        // TEST 3
         {
                 "Max_numbers_of_parameters_and_result_is_false",
                 0b1011011011,

@@ -36,6 +36,7 @@ TEST_P(ExprNodeToStringTest, ParseExprNodeTreeToStringTest) {
     EXPECT_EQ(actual, expected);
 }
 
+// TEST 1
 static vector<ExprNodeToStringTestsParam> provideParseSimpleBinaryToStrTestCases() {
 
     const vector<pair<
@@ -78,45 +79,55 @@ static vector<ExprNodeToStringTestsParam> provideParseSimpleBinaryToStrTestCases
 
 static vector<ExprNodeToStringTestsParam> provideCommonTestCases() {
     return {
-            {
-                    "Parse_simple_unary_node_with_root_UNARY_MINUS",
-                    "a -$",
-                    "-a"
-            },
-            {
-                    "Parse_simple_unary_node_with_root_NOT",
-                    "a !",
-                    "!a"},
+            // TEST 2
             {
                     "Parse_array_node_to_str",
                     "a i []",
                     "a[i]"
             },
+            // TEST 3
+            {
+                    "Parse_simple_unary_node_with_root_UNARY_MINUS",
+                    "a -$",
+                    "-a"
+            },
+            // TEST 3
+            {
+                    "Parse_simple_unary_node_with_root_NOT",
+                    "a !",
+                    "!a"
+            },
+            // TEST 4
             {
                     "Parse_logical_node_with_logical_const_to_str",
                     "a true &&",
                     "a && true"
             },
+            // TEST 5
             {
                     "Parse_arithmetical_node_with_arithmetical_const_to_str",
                     "a 0xFF *",
                     "a * 0xFF"
             },
+            // TEST 6
             {
                     "Parse_arithmetical_tree_to_str",
                     "c b + a b − +",
                     "c + b + a - b"
             },
+            // TEST 7
             {
                     "Parse_tree_with_nodes_different_precedence_lvl_to_str",
                     "c b + a a c - % *",
                     "(c + b) ∗ (a % (a − c))"
             },
+            // TEST 8
             {
                     "Parse_array_tree_to_str",
                     "arr 1 + 0 a b + [] []",
                     "(arr+1)[0][a+b]",
             },
+            // TEST 9
             {
                     "Parse_a_complex_tree_to_a_string",
                     "a i [] b * 5 -$ && ! x b a i [] * && ||",

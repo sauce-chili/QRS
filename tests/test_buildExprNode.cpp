@@ -46,8 +46,8 @@ TEST_P(BuildExprNodeTest, BuildExprTreeTest) {
     } else {
         string actualDiff = "";
         string expectedDiff = "";
-
-        result = expectedTree->compareExprTree(actualTree, actualDiff);
+        string buffer = "";
+        result = expectedTree->compareExprTree(actualTree, actualDiff, buffer);
         EXPECT_TRUE(result);
 
         removeWhiteSeparators(actualDiff);
@@ -57,6 +57,7 @@ TEST_P(BuildExprNodeTest, BuildExprTreeTest) {
     }
 }
 
+// TEST 1
 vector<BuildExprNodeTestParams> provideBuildSimpleArithmeticalTreeTestCases() {
     const vector<pair<
             EXPR_NODE_TYPE, string
@@ -78,7 +79,7 @@ vector<BuildExprNodeTestParams> provideBuildSimpleArithmeticalTreeTestCases() {
             {LESS_OR_EQ,  "LESS_OR_EQ"}
     };
     vector<BuildExprNodeTestParams> testCases;
-
+    // [TEST 1]
     // создаем простые деревья бинарных арифметических операции
     for (const auto &op: binaryOperators) {
         testCases.push_back({
@@ -99,6 +100,7 @@ vector<BuildExprNodeTestParams> provideBuildSimpleArithmeticalTreeTestCases() {
 
 vector<BuildExprNodeTestParams> provideCommonTestCases() {
     return {
+            // TEST 2
             {
                     "Build_simple_arithmetic_tree_with_root_unary_minus",
                     "a b * -$",
@@ -114,6 +116,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                     },
                     createEmptyExceptionList
             },
+            // TEST 3
             {
                     "Building_AND_node",
                     "a b &&",
@@ -125,6 +128,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                     },
                     createEmptyExceptionList
             },
+            // TEST 4
             {
                     "Building_OR_node",
                     "a b ||",
@@ -136,6 +140,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                     },
                     createEmptyExceptionList
             },
+            // TEST 5
             {
                     "Building_NOT_node",
                     "a b * !",
@@ -150,6 +155,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                     },
                     createEmptyExceptionList
             },
+            // TEST 6
             {
                     "Building_a_tree_with_a_numeric_constant",
                     "a 8.2 *",
@@ -162,6 +168,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                     },
                     createEmptyExceptionList
             },
+            // TEST 7
             {
                     "Building_a_tree_with_logical_constant",
                     "a true &&",
@@ -173,6 +180,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                     },
                     createEmptyExceptionList
             },
+            // TEST 8
             // !(a[i] * b && -0xFA) || (x && b * a[i])
             {
                     "Building_a_complex_tree",
@@ -211,6 +219,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                     },
                     createEmptyExceptionList
             },
+            // TEST 10
             {
                     "Missing_operand",
                     "a b + +",
@@ -223,6 +232,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                         return exceptions;
                     }
             },
+            // TEST 11
             {
                     "Unknown_sequence",
                     "a b ++",
@@ -235,6 +245,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                         return exceptions;
                     }
             },
+            // TEST 12
             {
                     "Extra_operand",
                     "a b c ||",

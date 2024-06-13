@@ -50,6 +50,7 @@ TEST_P(GenerateTableTestDDT, GenerateTableTest) {
 }
 
 const vector<GenerateTableTestParams> commonTestCases = {
+        // TEST 1
         {
                 "Generate_table_with_one_parameter",
                 "true a -$ 0xFA + &&",
@@ -59,6 +60,7 @@ const vector<GenerateTableTestParams> commonTestCases = {
                         {"1", "1"}
                 }
         },
+        // TEST 2
         {
                 "Generate_table_with_several_parameters",
                 "a i [] b * 0xFA -$ 5 + && ! x c k + && ||",
@@ -82,6 +84,7 @@ const vector<GenerateTableTestParams> commonTestCases = {
                         {"1", "1", "1", "1"}
                 },
         },
+        // TEST 3
         {
                 "Generating_table_with_several_parameters_including_commutative_parameters",
                 "a i [] b * 0xFA -$ 5 + && ! x b a i [] * c k + && && ||",
@@ -105,11 +108,12 @@ const vector<GenerateTableTestParams> commonTestCases = {
                         {"1", "1", "1", "1"}
                 }
         },
+        // TEST 4
         // ! x && (-(a[i] && b) || !a[i]) || a[i] && (-(a[i] && b) || x)
         {
                 "One_parameter_is_nested_within_another",
                 "x ! a i [] b && -$ a i [] ! || && a i [] a i [] b && -$ x || && ||",
-                {"x",         "-(a[i]||b)", "a[i]"},
+                {"x",         "-(a[i]&&b)", "a[i]"},
                 {
                         {"0", "0", "0", "1"},
                         {"0", "0", "1", "0"},
@@ -121,6 +125,7 @@ const vector<GenerateTableTestParams> commonTestCases = {
                         {"1", "1", "1", "1"}
                 }
         },
+        // TEST 5
         {
                 "Parameter_limit_exceeded",
                 "p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 || || || || || || || || || || ||",

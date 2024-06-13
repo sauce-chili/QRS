@@ -18,50 +18,46 @@ std::string trim(const std::string &str) {
     return str.substr(first, (last - first + 1));
 }
 
-// Функция для извлечения содержимого ячеек из строки таблицы
-std::vector<std::string> extractRowData(const std::string &row) {
+std::vector<std::string> extractRowData(const std::string &htmlRow) {
     std::vector<std::string> rowData;
     size_t tdPos = 0;
-    while ((tdPos = row.find("<td>", tdPos)) != std::string::npos) {
+    while ((tdPos = htmlRow.find("<td>", tdPos)) != std::string::npos) {
         tdPos += openTagLength; // Пропускаем <td>
-        size_t tdEndPos = row.find("</td>", tdPos);
-        std::string cell = row.substr(tdPos, tdEndPos - tdPos);
+        size_t tdEndPos = htmlRow.find("</td>", tdPos);
+        std::string cell = htmlRow.substr(tdPos, tdEndPos - tdPos);
         rowData.push_back(trim(cell));
         tdPos = tdEndPos + closeTagLength; // Пропускаем </td>
     }
     return rowData;
 }
 
-// Функция для выделения заголовков таблицы
-std::vector<std::string> extractHeaders(const std::string &html) {
+std::vector<std::string> extractHeaders(const std::string &htmlTable) {
     std::vector<std::string> headers;
-    size_t pos = html.find("<tr>");
+    size_t pos = htmlTable.find("<tr>");
     if (pos != std::string::npos) {
         pos += openTagLength; // Пропускаем <tr>
-        size_t endPos = html.find("</tr>", pos);
-        std::string row = html.substr(pos, endPos - pos);
+        size_t endPos = htmlTable.find("</tr>", pos);
+        std::string row = htmlTable.substr(pos, endPos - pos);
         headers = extractRowData(row);
     }
     return headers;
 }
 
-// Функция для выделения значений строк таблицы
-std::vector<std::vector<std::string>> extractValues(const std::string &html) {
+std::vector<std::vector<std::string>> extractValues(const std::string &htmlTable) {
     std::vector<std::vector<std::string>> values;
-    size_t pos = html.find("<tr>");
+    size_t pos = htmlTable.find("<tr>");
     if (pos != std::string::npos) {
-        pos = html.find("<tr>", pos + openTagLength); // Пропускаем первую строку (заголовки)
+        pos = htmlTable.find("<tr>", pos + openTagLength); // Пропускаем первую строку (заголовки)
         while (pos != std::string::npos) {
             pos += openTagLength; // Пропускаем <tr>
-            size_t endPos = html.find("</tr>", pos);
-            std::string row = html.substr(pos, endPos - pos);
+            size_t endPos = htmlTable.find("</tr>", pos);
+            std::string row = htmlTable.substr(pos, endPos - pos);
             values.push_back(extractRowData(row));
-            pos = html.find("<tr>", endPos + closeTagLength);
+            pos = htmlTable.find("<tr>", endPos + closeTagLength);
         }
     }
     return values;
 }
-
 
 void parseHTMLTable(const std::string &html, std::vector<std::string> &headers,
                     std::vector<std::vector<std::string>> &values) {
