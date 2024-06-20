@@ -3,7 +3,7 @@
 //
 #include <gtest/gtest.h>
 #include "entities/ExprNode.h"
-#include "utils/BuilderUtils.h"
+#include "TestUtils.h"
 #include "entities/Logical/LogicalNode.h"
 #include "entities/Constant/ConstantExprNode.h"
 #include "entities/Arithmetic/ArithmeticNode.h"
@@ -32,9 +32,12 @@ TEST_P(CompareExprNodeTestDDT, CompareExprTreeTest) {
 
     bool expected = params.expectedResult;
     string expectedDiff = params.pathToDiff;
-    string actualDiff = "";
-    string buffer = "";
+    string actualDiff;
+    string buffer;
     bool actual = expr1->compareExprTree(expr2.get(), actualDiff, buffer);
+
+    removeWhiteSeparators(actualDiff);
+    removeWhiteSeparators(expectedDiff);
 
     EXPECT_EQ(actual, expected);
     EXPECT_EQ(actualDiff, expectedDiff);
@@ -584,8 +587,8 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                                 std::make_unique<ConstantExprNode>("0x12").release()
                         );
                     },
-                    "",
-                    true
+                    "!= -> 0x12",
+                    false
             },
             // TEST 20
             // Binary Arithmetic Expression (a + 8) vs Binary Arithmetic Expression (a + 001)
@@ -605,8 +608,8 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                                 std::make_unique<ConstantExprNode>("001").release()
                         );
                     },
-                    "",
-                    true
+                    "+ -> 001",
+                    false
             },
             // TEST 21
             // Arithmetic Expression (a % true) vs Arithmetic Expression (a % true)
@@ -857,7 +860,231 @@ static vector<CompareExprNodeTestParams> provideCompareExprNodeCommonTestCases()
                                 ).release()
                         );
                     },
-                    "!= -> || -> a",
+                    "!= -> || -> [] -> a",
+                    false
+            },
+            // TEST 31
+            {
+                    "Comparison_of_binary_arithmetic_trees_containing_numeric_constants_with_a_type_modifier_1",
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<CommutativeArithmeticNode>(
+                                XOR,
+                                std::make_unique<Operand>("a").release(),
+                                std::make_unique<ConstantExprNode>("17LL").release()
+                        );
+                    },
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<CommutativeArithmeticNode>(
+                                XOR,
+                                std::make_unique<Operand>("a").release(),
+                                std::make_unique<ConstantExprNode>("17l").release()
+                        );
+                    },
+                    "",
+                    true
+            },
+            // TEST 32
+            {
+                    "Comparison_of_binary_arithmetic_trees_containing_numeric_constants_with_a_type_modifier_2",
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<CommutativeArithmeticNode>(
+                                MUL,
+                                std::make_unique<Operand>("a").release(),
+                                std::make_unique<ConstantExprNode>("23.3f").release()
+                        );
+                    },
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<CommutativeArithmeticNode>(
+                                MUL,
+                                std::make_unique<Operand>("a").release(),
+                                std::make_unique<ConstantExprNode>("23.3").release()
+                        );
+                    },
+                    "",
+                    true
+            },
+            // TEST 33
+            {
+                    "Comparison_of_binary_arithmetic_trees_containing_numeric_constants_with_a_type_modifier_3",
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<CommutativeArithmeticNode>(
+                                XOR,
+                                std::make_unique<Operand>("a").release(),
+                                std::make_unique<ConstantExprNode>("0.2ll").release()
+                        );
+                    },
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<CommutativeArithmeticNode>(
+                                XOR,
+                                std::make_unique<Operand>("a").release(),
+                                std::make_unique<ConstantExprNode>("0.2FF").release()
+                        );
+                    },
+                    "",
+                    true
+            },
+            // TEST 34
+            {
+                    "Comparison_of_binary_arithmetic_trees_containing_number_with_mantissa_1",
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<CommutativeArithmeticNode>(
+                                XOR,
+                                std::make_unique<Operand>("a").release(),
+                                std::make_unique<ConstantExprNode>("1.04E+3").release()
+                        );
+                    },
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<CommutativeArithmeticNode>(
+                                XOR,
+                                std::make_unique<Operand>("a").release(),
+                                std::make_unique<ConstantExprNode>("1040").release()
+                        );
+                    },
+                    "",
+                    true
+            },
+            // TEST 35
+            {
+                    "Comparison_of_binary_arithmetic_trees_containing_number_with_mantissa_2",
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<CommutativeArithmeticNode>(
+                                PLUS,
+                                std::make_unique<Operand>("a").release(),
+                                std::make_unique<ConstantExprNode>("0.0033f").release()
+                        );
+                    },
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<CommutativeArithmeticNode>(
+                                PLUS,
+                                std::make_unique<Operand>("a").release(),
+                                std::make_unique<ConstantExprNode>("3.3E-3").release()
+                        );
+                    },
+                    "",
+                    true
+            },
+            // TEST 36
+            // Logical NOT (!(a * b || c)) vs Logical NOT (!(a + b || c))
+            {
+                    "The_tree_is_distinguished_by_the_arithmetic_binary_operation",
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<LogicalNodeNOT>(
+                                std::make_unique<LogicalNodeOR>(
+                                        std::make_unique<BinaryArithmeticNode>(
+                                                MUL,
+                                                std::make_unique<Operand>("a").release(),
+                                                std::make_unique<Operand>("b").release()
+                                        ).release(),
+                                        std::make_unique<Operand>("c").release()
+                                ).release()
+                        );
+                    },
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<LogicalNodeNOT>(
+                                std::make_unique<LogicalNodeOR>(
+                                        std::make_unique<BinaryArithmeticNode>(
+                                                PLUS,
+                                                std::make_unique<Operand>("a").release(),
+                                                std::make_unique<Operand>("b").release()
+                                        ).release(),
+                                        std::make_unique<Operand>("c").release()
+                                ).release()
+                        );
+                    },
+                    "! -> || -> +",
+                    false
+            },
+            // TEST 37
+            // Logical !(a * b && c) vs !(a + b || c)
+            {
+                    "The_tree_is_distinguished_by_the_logical_binary_operation",
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<LogicalNodeNOT>(
+                                std::make_unique<LogicalNodeAND>(
+                                        std::make_unique<BinaryArithmeticNode>(
+                                                MUL,
+                                                std::make_unique<Operand>("a").release(),
+                                                std::make_unique<Operand>("b").release()
+                                        ).release(),
+                                        std::make_unique<Operand>("c").release()
+                                ).release()
+                        );
+                    },
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<LogicalNodeNOT>(
+                                std::make_unique<LogicalNodeOR>(
+                                        std::make_unique<BinaryArithmeticNode>(
+                                                MUL,
+                                                std::make_unique<Operand>("a").release(),
+                                                std::make_unique<Operand>("b").release()
+                                        ).release(),
+                                        std::make_unique<Operand>("c").release()
+                                ).release()
+                        );
+                    },
+                    "! -> ||",
+                    false
+            },
+            // TEST 38
+            // Logical !(a * b && c) vs -(a * b && c)
+            {
+                    "The_tree_is_distinguished_by_the_unary_arithmetic_operation",
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<LogicalNodeNOT>(
+                                std::make_unique<LogicalNodeOR>(
+                                        std::make_unique<BinaryArithmeticNode>(
+                                                MUL,
+                                                std::make_unique<Operand>("a").release(),
+                                                std::make_unique<Operand>("b").release()
+                                        ).release(),
+                                        std::make_unique<Operand>("c").release()
+                                ).release()
+                        );
+                    },
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<UnaryArithmeticNode>(
+                                UNARY_MINUS,
+                                std::make_unique<LogicalNodeAND>(
+                                        std::make_unique<BinaryArithmeticNode>(
+                                                MUL,
+                                                std::make_unique<Operand>("a").release(),
+                                                std::make_unique<Operand>("b").release()
+                                        ).release(),
+                                        std::make_unique<Operand>("c").release()
+                                ).release()
+                        );
+                    },
+                    "-",
+                    false
+            },
+            // TEST 39
+            {
+                    "The_trees_differ_in_several_nodes_but_only_the_first_distinct_one_is_displayed",
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<LogicalNodeNOT>(
+                                std::make_unique<LogicalNodeOR>(
+                                        std::make_unique<CommutativeArithmeticNode>(
+                                                MUL,
+                                                std::make_unique<Operand>("a").release(),
+                                                std::make_unique<Operand>("b").release()
+                                        ).release(),
+                                        std::make_unique<Operand>("c").release()
+                                ).release()
+                        );
+                    },
+                    []() -> std::unique_ptr<ExprNode> {
+                        return std::make_unique<LogicalNodeNOT>(
+                                std::make_unique<LogicalNodeAND>(
+                                        std::make_unique<CommutativeArithmeticNode>(
+                                                MUL,
+                                                std::make_unique<Operand>("a").release(),
+                                                std::make_unique<Operand>("c").release()
+                                        ).release(),
+                                        std::make_unique<Operand>("d").release()
+                                ).release()
+                        );
+                    },
+                    "! -> &&",
                     false
             }
     };
