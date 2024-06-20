@@ -28,11 +28,12 @@ class BuildExprNodeTest
 TEST_P(BuildExprNodeTest, BuildExprTreeTest) {
     auto params = GetParam();
     unique_ptr<ExprNode> expectedTree = params.expectedTree();
-    unique_ptr<ExceptionList> expectedExceptions = params.expectedExps();
+    ExceptionList expectedExceptions = params.expectedExps;
 
     ExceptionList actualExceptions;
     string inStr = params.buildString;
     ExprNode *actualTree = ExprNodeBuilder::buildExprTree(inStr, actualExceptions);
+
 
     bool result;
 
