@@ -54,7 +54,6 @@ TEST_P(BuildExprNodeTest, BuildExprTreeTest) {
     }
 }
 
-// TEST 1
 vector<BuildExprNodeTestParams> provideBuildSimpleArithmeticalTreeTestCases() {
     const vector<pair<
             EXPR_NODE_TYPE, string
@@ -76,7 +75,7 @@ vector<BuildExprNodeTestParams> provideBuildSimpleArithmeticalTreeTestCases() {
             {LESS_OR_EQ,  "LESS_OR_EQ"}
     };
     vector<BuildExprNodeTestParams> testCases;
-    // [TEST 1]
+    // TEST 1
     // создаем простые деревья бинарных арифметических операции
     for (const auto &op: binaryOperators) {
         testCases.push_back({
@@ -111,7 +110,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                                 ).release()
                         );
                     },
-                    createEmptyExceptionList
+                    {}
             },
             // TEST 3
             {
@@ -123,7 +122,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                                 std::make_unique<Operand>("b").release()
                         );
                     },
-                    createEmptyExceptionList
+                    {}
             },
             // TEST 4
             {
@@ -135,7 +134,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                                 std::make_unique<Operand>("b").release()
                         );
                     },
-                    createEmptyExceptionList
+                    {}
             },
             // TEST 5
             {
@@ -150,12 +149,12 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                                 ).release()
                         );
                     },
-                    createEmptyExceptionList
+                    {}
             },
             // TEST 6
             {
                     "Building_a_tree_with_a_numeric_constant",
-                    "a 8.2 *",
+                    "a 8.2 +",
                     []() -> std::unique_ptr<ExprNode> {
                         return std::make_unique<CommutativeArithmeticNode>(
                                 PLUS,
@@ -163,7 +162,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("8.2").release()
                         );
                     },
-                    createEmptyExceptionList
+                    {}
             },
             // TEST 7
             {
@@ -175,7 +174,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                                 std::make_unique<ConstantExprNode>("true").release()
                         );
                     },
-                    createEmptyExceptionList
+                    {}
             },
             // TEST 8
             // !(a[i] * b && -0xFA) || (x && b * a[i])
@@ -207,52 +206,73 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                                                 make_unique<Operand>("b").release(),
                                                 make_unique<ArrayArithmeticNode>(
                                                         make_unique<Operand>("a").release(),
-                                                        make_unique<Operand>("b").release()
+                                                        make_unique<Operand>("i").release()
                                                 ).release()
                                         ).release()
 
                                 ).release()
                         );
                     },
-                    createEmptyExceptionList
+                    {}
+            },
+            // TEST 9
+            {
+                    "The_tree_consists_of_one_parameter",
+                    "a",
+                    []() -> unique_ptr<ExprNode> {
+                        return make_unique<Operand>("a");
+                    },
+                    {}
             },
             // TEST 10
+            {
+                    "Empty_tree",
+                    "",
+                    []() -> unique_ptr<ExprNode> {
+                        return nullptr;
+                    },
+                    {EmptyTreeException()}
+            },
+            // TEST 11
             {
                     "Missing_operand",
                     "a b + +",
                     []() -> unique_ptr<ExprNode> {
                         return nullptr;
                     },
-                    []() -> unique_ptr<ExceptionList> {
-                        auto exceptions = make_unique<list<Exception>>();
-                        exceptions->emplace_back(MissingOperand("+", 4));
-                        return exceptions;
-                    }
+                    {MissingOperand("+", 4)}
             },
-            // TEST 11
+            // TEST 12
             {
                     "Unknown_sequence",
                     "a b ++",
                     []() -> unique_ptr<ExprNode> {
                         return nullptr;
                     },
-                    []() -> unique_ptr<ExceptionList> {
-                        auto exceptions = make_unique<list<Exception>>();
-                        exceptions->emplace_back(UnexpectedElementException("++", 3));
-                        return exceptions;
+                    {
+                            UnexpectedElementException("++", 3)
                     }
             },
-            // TEST 12
+            // TEST 13
             {
                     "Extra_operand",
                     "a b c ||",
                     []() -> unique_ptr<ExprNode> {
                         return nullptr;
                     },
-                    []() -> unique_ptr<ExceptionList> {
-                        auto exceptions = make_unique<list<Exception>>();
-                        exceptions->emplace_back(ExtraOperandException("a", 1));
-                        return exceptions;
+                    {ExtraOperandException("a", 1)}
+            },
+            // TEST 14
+            {
+                    "Several_operands_without_a_root",
+                    "c b a",
+                    []() -> unique_ptr<ExprNode> {
+                        return nullptr;
+                    },
+                    {
+                            ExtraOperandException("b", 2),
+                            ExtraOperandException("c", 1)
+
                     }
             }
     };
