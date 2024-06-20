@@ -62,7 +62,7 @@ const vector<CalculateTestParams> commonTestCases = {
                 "AND_with_parameters_value_11",
                 "a b &&",
                 0b11,
-                false,
+                true,
         },
         // TEST 5
         {
