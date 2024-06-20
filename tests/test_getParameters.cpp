@@ -12,8 +12,8 @@ using namespace std;
 struct GetParametersTestsParam {
     string testName;
     string buildString;
-    // str representation of parameter and ID
-    vector<pair<string, int>> params;
+    // str representations of parameter and ID
+    vector<pair<unordered_set<string>, int>> params;
 };
 
 class GetParametersTestDDT
@@ -30,7 +30,7 @@ TEST_P(GetParametersTestDDT, GetParametersTest) {
     vector<ExprNode *> parameters;
     tree->getParameters(parameters);
 
-    vector<pair<string, int>> &expected = params.params;
+    vector<pair<unordered_set<string>, int>> &expected = params.params;
 
     if (expected.size() == parameters.size()) {
 
@@ -40,8 +40,8 @@ TEST_P(GetParametersTestDDT, GetParametersTest) {
                   });
 
         std::sort(expected.begin(), expected.end(),
-                  [](const std::pair<std::string, int> &a,
-                     const std::pair<std::string, int> &b) {
+                  [](const pair<unordered_set<string>, int> &a,
+                     const pair<unordered_set<string>, int> &b) {
                       return a.second < b.second;
                   });
 
@@ -50,13 +50,12 @@ TEST_P(GetParametersTestDDT, GetParametersTest) {
             string actStrParam = parameters[i]->toString();
             int actualId = parameters[i]->getParamID();
 
-            string expStrParam = expected[i].first;
+            unordered_set<string> expStrParams = expected[i].first;
             int expId = expected[i].second;
 
-            removeWhiteSeparators(actStrParam);
-            removeWhiteSeparators(expStrParam);
+            bool containsInParamsSet = expStrParams.contains(actStrParam);;
 
-            EXPECT_EQ(actStrParam, expStrParam);
+            EXPECT_TRUE(containsInParamsSet);
             EXPECT_EQ(actualId, expId);
         }
     } else {
@@ -70,23 +69,23 @@ const vector<GetParametersTestsParam> commonTestCases = {
                 // false && -0xFA+5
                 "Tree_without_parameters_only_const",
                 "false 0xFA -$ 5 + &&",
-                vector<pair<string, int>>()
+                vector<pair<unordered_set<string>, int>>()
         },
         // TEST 2
         {
                 //  false && -0xFA+a
                 "Tree_contains_one_parameter_and_one_const",
                 "false 0xFA -$ a + &&",
-                vector<pair<string, int>>{{"(-0xFA)+a", 1}}
+                vector<pair<unordered_set<string>, int>>{{{"(-0xFA)+a", "a+(-0xFA)"}, 1}}
         },
         // TEST 3
         {
                 // !((a[i] * b) && ((-0xFA) + 5)) || (x && b*a[i])
                 "Tree_with_commutative_parameter",
                 "a i [] b * 0xFA -$ 5 + && ! x b a i [] * && ||",
-                vector<pair<string, int>>{
-                        {"a[i]*b", 1}, // a[i]*b == b*a[i]
-                        {"x",      2}
+                vector<pair<unordered_set<string>, int>>{
+                        {{"a[i]*b", "b*a[i]"}, 1}, // a[i]*b == b*a[i]
+                        {{"x"},                2}
                 }
         },
         // TEST 4
@@ -94,10 +93,10 @@ const vector<GetParametersTestsParam> commonTestCases = {
                 // !((a[i] * b) && ((-0xFA) + 5)) || (x && b*i[a])
                 "Tree_with_parameters_similar_to_commutative",
                 "a i [] b * 0xFA -$ 5 + && ! x b i a [] * && ||",
-                vector<pair<string, int>>{
-                        {"a[i]*b", 1}, // a[i]*b != b*i[a]
-                        {"x",      2},
-                        {"b*i[a]", 3}
+                vector<pair<unordered_set<string>, int>>{
+                        {{"a[i]*b", "b*a[i]"}, 1}, // a[i]*b != b*i[a]
+                        {{"x"},                2},
+                        {{"b*i[a]", "i[a]*b"}, 3}
                 }
         },
         // TEST 5
@@ -105,10 +104,10 @@ const vector<GetParametersTestsParam> commonTestCases = {
                 // !((a[i]*b)&&((-0xFA) + 5)) || (x && ((b || a[i]) ^ (c+k)))
                 "Logical_operation_nested_within_arithmetical_subtree",
                 "a i [] b * 0xFA -$ 5 + && ! b a i [] || c k + ^ ||",
-                vector<pair<string, int>>{
-                        {"a[i]*b",        1},
-                        {"x",             2},
-                        {"(b||a[i])^c+k", 3}
+                vector<pair<unordered_set<string>, int>>{
+                        {{"a[i]*b", "b*a[i]"}, 1},
+                        {{"x"},                  2},
+                        {{"(b||a[i])^c+k"},      3}
                 }
         }
 };
