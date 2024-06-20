@@ -40,8 +40,8 @@ TEST_P(BuildExprNodeTest, BuildExprTreeTest) {
 
     bool result;
 
-    if (not expectedExceptions->empty()) {
-        result = std::equal(expectedExceptions->begin(), expectedExceptions->end(), actualExceptions.end());
+    if (not expectedExceptions.empty()) {
+        result = std::equal(expectedExceptions.begin(), expectedExceptions.end(), actualExceptions.begin());
         EXPECT_TRUE(result);
     } else {
         string actualDiff = "";
