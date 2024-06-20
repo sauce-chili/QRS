@@ -14,15 +14,11 @@
 
 using namespace std;
 
-unique_ptr<ExceptionList> createEmptyExceptionList() {
-    return make_unique<ExceptionList>();
-}
-
 struct BuildExprNodeTestParams {
     string testName;
     string buildString;
     function<std::unique_ptr<ExprNode>()> expectedTree;
-    function<std::unique_ptr<ExceptionList>()> expectedExps;
+    ExceptionList expectedExps;
 };
 
 class BuildExprNodeTest
