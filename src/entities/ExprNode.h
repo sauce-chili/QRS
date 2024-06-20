@@ -33,6 +33,7 @@ enum EXPR_NODE_TYPE {
     ARR, ///< []
     VAR,///< Какая-либо переменная
     CONST, ///< Констанста
+    UNDEFINED /// < Используется для ошибок
 };
 
 /*!
@@ -51,11 +52,11 @@ protected:
      * @details Метод выполняет поиск @p this в @p params, производя поэлементное сравнение с учетом коммутации операции
      * <u>корня</u>. Если @p this не найдет, то возврается nullptr. Для сравния параметров используется ExprNode::compareParameters
      * @param[in] params - список параметров, где будет выполняться поиск
-     * @return элемент из @p params совпавший с @p this или nullptr, если @this не найден.
+     * @return элемент из @p params совпавший с @p this или nullptr, если @p this не найден.
      * @example Одинаковыми будут считаться параметы a + b ^ c и b ^ c + a, однако a + (b ^ c) и (c ^ b) + a будут считаться разными параметрами
      * @see ExprNode::compareParameters
      * */
-    virtual bool findParameter(std::vector<ExprNode *> &params); // метод поиска параметра
+     ExprNode* findParameter(std::vector<ExprNode *> &params); // метод поиска параметра
 
     /*!
      * @brief Метод сравнивает выражения с учётом коммутации верхнего уровня
@@ -77,7 +78,7 @@ public:
      * @brief Метод преобразует дерево логического выражения в строковой формат
      * @return строковое представление дерева логического выражения
      * */
-    virtual std::string toString() = 0;
+    virtual std::string toString() const = 0;
 
     /*!
      * @brief Метод сравнивает узлы
@@ -96,11 +97,20 @@ public:
     virtual void getParameters(std::vector<ExprNode *> &params);
 
     /*!
-     * @brief Метод сравнивающая деревья
+     * @brief Метод сравнивающий деревья
      * @param[in] other - дерево, которым идет сравнение
+     * @param[in,out] pathToDiff - путь в дереве @p other до первого узла с которым наблюдается различие
+     * @param[in] current - служебный буффер
      * @return true/false в зависимости от эквивалентности деревьев
      * */
-    virtual bool compareExprTree(const ExprNode *otherRoot, std::string &pathToDiff);
+    virtual bool compareExprTree(const ExprNode *otherRoot, std::string &pathToDiff, std::string &current);
+
+    /*!
+     * @brief Метод определяющий является ли выражение константным
+     * @example Константное выражение: true && -(23 * 0x0FA)
+     * @return true/false в зависимости от того является ли выржение константным
+     * */
+    virtual bool isConstantExpr() const;
 
     /*!
      * @brief Метод возвращает приоритет узла
@@ -113,6 +123,12 @@ public:
      * @result id параметра
      * */
     int getParamID() const;
+
+    /*!
+     * @brief Метд возвращает тип узла
+     * @return тип узла
+     * */
+    EXPR_NODE_TYPE getNodeType() const;
 };
 
 #endif //MODULWORD_Q_RS_EXPRNODE_H
