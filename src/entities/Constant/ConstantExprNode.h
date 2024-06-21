@@ -6,7 +6,7 @@
 #define MODULWORD_Q_RS_CONSTANTEXPRNODE_H
 
 
-#include "../Operand.h"
+#include "entities/Operand.h"
 
 class ConstantExprNode : public Operand {
     double numValue;

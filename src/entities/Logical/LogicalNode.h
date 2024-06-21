@@ -5,8 +5,8 @@
 #ifndef MODULWORD_Q_RS_LOGICALNODEIMPL_H
 #define MODULWORD_Q_RS_LOGICALNODEIMPL_H
 
-#include "../Operation.h"
-#include "../../utils/BuilderUtils.h"
+#include "entities/Operation.h"
+#include "utils/BuilderUtils.h"
 
 class BinaryLogicalOperation : public BinaryOperation {
 public:

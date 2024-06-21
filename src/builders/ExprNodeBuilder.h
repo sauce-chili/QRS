@@ -5,8 +5,8 @@
 
 #include <list>
 #include <stack>
-#include "../entities/ExprNode.h"
-#include "../utils/BuilderUtils.h"
+#include "entities/ExprNode.h"
+#include "utils/BuilderUtils.h"
 #include "exception/Exceptions.h"
 
 class ExprNodeBuilder {

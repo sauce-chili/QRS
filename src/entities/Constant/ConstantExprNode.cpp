@@ -5,7 +5,6 @@
 #include "ConstantExprNode.h"
 #include "utils/BuilderUtils.h"
 #include <bits/stdc++.h>
-#include <utility>
 #include "utils/Utils.h"
 
 bool ConstantExprNode::calculate(unsigned short &params) {

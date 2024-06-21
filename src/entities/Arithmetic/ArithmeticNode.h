@@ -5,8 +5,8 @@
 #ifndef MODULWORD_Q_RS_ARITHMETICNODE_H
 #define MODULWORD_Q_RS_ARITHMETICNODE_H
 
-#include "../Operation.h"
-#include "../../utils/BuilderUtils.h"
+#include "utils/BuilderUtils.h"
+#include "entities/Operation.h"
 
 class BinaryArithmeticNode : public BinaryOperation {
     std::function<double(double, double)> binaryCalculator;

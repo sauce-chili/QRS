@@ -7,7 +7,7 @@
 
 
 #include <list>
-#include "../entities/ExprNode.h"
+#include "entities/ExprNode.h"
 
 class TruthTableGenerator {
 private:
