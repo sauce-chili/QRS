@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <climits>
+#include <functional>
 #include "../entities/ExprNode.h"
 
 
@@ -26,6 +27,10 @@ class BuilderUtil {
 
     static std::unordered_map<EXPR_NODE_TYPE, std::string> strOperationNodeType; // словарь символьного представления операции
 
+    static std::unordered_map<EXPR_NODE_TYPE, std::function<double(double, double)>> binaryArithmeticalCalculator;
+
+    static std::unordered_map<EXPR_NODE_TYPE, std::function<double(double)>> unaryArithmeticalCalculator;
+
     static bool isConstantStr(const std::string &str);
 
     static bool isVariableStr(const std::string &str);
@@ -35,6 +40,10 @@ public:
     static EXPR_NODE_TYPE getNodeType(std::string str);
 
     static std::string getStrRepresentationNodeType(EXPR_NODE_TYPE type);
+
+    static std::function<double(double, double)> getBinaryArithmeticalCalculator(EXPR_NODE_TYPE type);
+
+    static std::function<double(double)> getUnaryArithmeticalCalculator(EXPR_NODE_TYPE type);
 
     static int getPrecedenceLvl(const EXPR_NODE_TYPE &type);
 

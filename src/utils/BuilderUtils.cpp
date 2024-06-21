@@ -71,12 +71,33 @@ std::unordered_map<EXPR_NODE_TYPE, std::string> BuilderUtil::strOperationNodeTyp
         {EXPR_NODE_TYPE::LESS,        "<"},
         {EXPR_NODE_TYPE::LESS_OR_EQ,  "<="},
         {EXPR_NODE_TYPE::GREAT,       ">"},
-        {EXPR_NODE_TYPE::GREAT_OR_EQ,  ">="},
+        {EXPR_NODE_TYPE::GREAT_OR_EQ, ">="},
         {EXPR_NODE_TYPE::EQ,          "=="},
         {EXPR_NODE_TYPE::NEQ,         "!="},
         {EXPR_NODE_TYPE::XOR,         "^"},
         {EXPR_NODE_TYPE::AND,         "&&"},
         {EXPR_NODE_TYPE::OR,          "||"}
+};
+
+std::unordered_map<EXPR_NODE_TYPE, std::function<double(double, double)>> BuilderUtil::binaryArithmeticalCalculator = {
+        {MUL, [](double l, double r) -> double { return l * r; }},
+        {DIV, [](double l, double r) -> double { return l / r; }},
+        {MOD, [](double l, double r) -> double { return (int) l << (int) r; }},
+        {PLUS, [](double l, double r) -> double { return l + r; }},
+        {MINUS, [](double l, double r) -> double { return l - r; }},
+        {SHLA, [](double l, double r) -> double { return (int) l << (int) r; }},
+        {SHRA, [](double l, double r) -> double { return (int) l >> (int) r; }},
+        {LESS, [](double l, double r) -> double { return l < r; }},
+        {LESS_OR_EQ, [](double l, double r) -> double { return l <= r; }},
+        {GREAT, [](double l, double r) -> double { return l > r; }},
+        {GREAT_OR_EQ, [](double l, double r) -> double { return l >= r; }},
+        {EQ, [](double l, double r) -> double { return l == r; }},
+        {NEQ, [](double l, double r) -> double { return l != r; }},
+        {XOR, [](double l, double r) -> double { return (int) l ^ (int) r; }},
+};
+
+std::unordered_map<EXPR_NODE_TYPE, std::function<double(double)>> BuilderUtil::unaryArithmeticalCalculator = {
+        {UNARY_MINUS, [](double o) -> double { return -o; }}
 };
 
 std::unordered_set<EXPR_NODE_TYPE> BuilderUtil::commutativeOperation = {
@@ -135,4 +156,12 @@ std::string BuilderUtil::getStrRepresentationNodeType(EXPR_NODE_TYPE type) {
 
 std::string BuilderUtil::wrapIn(const std::string wrapper[2], const std::string &wrapable) {
     return wrapper[0] + wrapable + wrapper[1];
+}
+
+std::function<double(double, double)> BuilderUtil::getBinaryArithmeticalCalculator(EXPR_NODE_TYPE type) {
+    return binaryArithmeticalCalculator[type];
+}
+
+std::function<double(double)> BuilderUtil::getUnaryArithmeticalCalculator(EXPR_NODE_TYPE type) {
+    return unaryArithmeticalCalculator[type];
 }
