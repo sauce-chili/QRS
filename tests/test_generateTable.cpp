@@ -67,7 +67,7 @@ const vector<GenerateTableTestParams> commonTestCases = {
                 {"a[i]*b",    "x",          "c+k", "F"},
                 {
                         // <td>0</td><td>0</td><td>0</td><td>1</td>
-                        {"0", "0", "0", "0"},
+                        {"0", "0", "0", "1"},
                         // <td>0</td><td>0</td><td>1</td><td>1</td>
                         {"0", "0", "1", "1"},
                         // <td>0</td><td>1</td><td>0</td><td>1</td>
@@ -113,13 +113,13 @@ const vector<GenerateTableTestParams> commonTestCases = {
         {
                 "One_parameter_is_nested_within_another",
                 "x ! a i [] b && -$ a i [] ! || && a i [] a i [] b && -$ x || && ||",
-                {"x",         "-(a[i]&&b)", "a[i]"},
+                {"x",         "-(a[i]&&b)", "a[i]","F"},
                 {
                         {"0", "0", "0", "1"},
                         {"0", "0", "1", "0"},
-                        {"0", "1", "0", "0"},
+                        {"0", "1", "0", "1"},
                         {"0", "1", "1", "1"},
-                        {"1", "0", "0", "1"},
+                        {"1", "0", "0", "0"},
                         {"1", "0", "1", "1"},
                         {"1", "1", "0", "0"},
                         {"1", "1", "1", "1"}
