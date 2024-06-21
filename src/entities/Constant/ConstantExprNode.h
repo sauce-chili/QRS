@@ -14,6 +14,7 @@ public:
     explicit ConstantExprNode(std::string val);
 
     bool calculate(unsigned short &params) override;
+    double calculate() override;
     bool operator==(const ExprNode &other) const override;
     bool isConstantExpr() const override;
 };

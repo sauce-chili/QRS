@@ -9,16 +9,22 @@
 #include "../../utils/BuilderUtils.h"
 
 class BinaryArithmeticNode : public BinaryOperation {
+    std::function<double(double, double)> binaryCalculator;
 public:
     BinaryArithmeticNode(EXPR_NODE_TYPE type,
                          ExprNode *leftOpr, ExprNode *rightOpr);
-    bool isConstantExpr() const override;
+
+    bool calculate(unsigned short &args) override;
+    double calculate() override;
 };
 
 class UnaryArithmeticNode : public UnaryOperation {
+    std::function<double(double)> unaryCalculator;
 public:
     UnaryArithmeticNode(EXPR_NODE_TYPE type, ExprNode *opr);
-    bool isConstantExpr() const override;
+
+    bool calculate(unsigned short &args) override;
+    double calculate() override;
 };
 
 // Commutative operation
@@ -39,6 +45,8 @@ public:
                         ExprNode *rightOpr);
 
     std::string toString() const override;
+
+    bool isConstantExpr() const override;
 };
 
 #endif //MODULWORD_Q_RS_ARITHMETICNODE_H

@@ -7,6 +7,7 @@
 #include "utils/BuilderUtils.h"
 #include <bits/stdc++.h>
 #include <algorithm>
+#include "exception/Exceptions.h"
 
 
 ExprNode *ExprNode::findParameter(std::vector<ExprNode *> &params) {
@@ -76,4 +77,8 @@ bool ExprNode::compareParameters(const ExprNode *other) {
     std::string diff;
     std::string buffer;
     return compareExprTree(other,diff, buffer);
+}
+
+double ExprNode::calculate() {
+    throw ArithmeticCalculationException();
 }

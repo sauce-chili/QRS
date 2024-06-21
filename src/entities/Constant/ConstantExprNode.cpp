@@ -31,3 +31,7 @@ bool ConstantExprNode::operator==(const ExprNode &other) const {
 
     return numValue == c->numValue;
 }
+
+double ConstantExprNode::calculate() {
+    return numValue;
+}

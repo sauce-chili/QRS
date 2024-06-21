@@ -61,24 +61,52 @@ ArrayArithmeticNode::ArrayArithmeticNode(ExprNode *leftOpr, ExprNode *rightOpr)
 
 }
 
+bool ArrayArithmeticNode::isConstantExpr() const {
+    return false;
+}
+
 BinaryArithmeticNode::BinaryArithmeticNode(EXPR_NODE_TYPE type,
                                            ExprNode *leftOpr, ExprNode *rightOpr) : BinaryOperation(leftOpr, rightOpr) {
     this->type = type;
     this->precedence = BuilderUtil::getPrecedenceLvl(type);
+    binaryCalculator = BuilderUtil::getBinaryArithmeticalCalculator(type);
 }
 
-bool BinaryArithmeticNode::isConstantExpr() const {
-    bool leftIsConstExpr = leftOpr->isConstantExpr();
-    bool rightIsConstExpr = rightOpr->isConstantExpr();
+double BinaryArithmeticNode::calculate() {
+    double leftValue = leftOpr->calculate();
+    double rightValue = rightOpr->calculate();
+    double result = binaryCalculator(leftValue, rightValue);
+    return result;
+}
 
-    return leftIsConstExpr && rightIsConstExpr;
-};
+bool BinaryArithmeticNode::calculate(unsigned short &args) {
+    bool result;
+    if (this->isConstantExpr()) {
+        result = (bool) this->calculate();
+    } else {
+        result = ExprNode::calculate(args);
+    }
+    return result;
+}
 
 UnaryArithmeticNode::UnaryArithmeticNode(EXPR_NODE_TYPE type, ExprNode *opr) : UnaryOperation(opr) {
     this->type = type;
     precedence = BuilderUtil::getPrecedenceLvl(type);
+    unaryCalculator = BuilderUtil::getUnaryArithmeticalCalculator(type);
 }
 
-bool UnaryArithmeticNode::isConstantExpr() const {
-    return opr->isConstantExpr();
+double UnaryArithmeticNode::calculate() {
+    double oprValue = opr->calculate();
+    double result = unaryCalculator(oprValue);
+    return result;
+}
+
+bool UnaryArithmeticNode::calculate(unsigned short &args) {
+    bool result;
+    if (this->isConstantExpr()) {
+        result = (bool) this->calculate();
+    } else {
+        result = ExprNode::calculate(args);
+    }
+    return result;
 }

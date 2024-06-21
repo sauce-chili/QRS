@@ -16,6 +16,14 @@ LogicalNodeAND::LogicalNodeAND(ExprNode *leftOpr, ExprNode *rightOpr) : BinaryLo
     precedence = BuilderUtil::getPrecedenceLvl(type);
 }
 
+double LogicalNodeAND::calculate() {
+    double leftResult = this->leftOpr->calculate();
+    double rightResult = this->rightOpr->calculate();
+    double result = leftResult && rightResult;
+
+    return result;
+}
+
 bool LogicalNodeOR::calculate(unsigned short &params) {
     bool leftResult = this->leftOpr->calculate(params);
     bool rightResult = this->rightOpr->calculate(params);
@@ -28,6 +36,14 @@ LogicalNodeOR::LogicalNodeOR(ExprNode *leftOpr, ExprNode *rightOpr) : BinaryLogi
     precedence = BuilderUtil::getPrecedenceLvl(type);
 }
 
+double LogicalNodeOR::calculate() {
+    double leftResult = this->leftOpr->calculate();
+    double rightResult = this->rightOpr->calculate();
+    double result = leftResult || rightResult;
+
+    return result;
+}
+
 bool LogicalNodeNOT::calculate(unsigned short &params) {
     bool result = not this->opr->calculate(params);
     return result;
@@ -36,6 +52,12 @@ bool LogicalNodeNOT::calculate(unsigned short &params) {
 LogicalNodeNOT::LogicalNodeNOT(ExprNode *opr) : UnaryBinaryOperation(opr) {
     type = EXPR_NODE_TYPE::NOT;
     precedence = BuilderUtil::getPrecedenceLvl(type);
+}
+
+double LogicalNodeNOT::calculate() {
+    double oprValue = this->opr->calculate();
+
+    return not oprValue;
 }
 
 void BinaryLogicalOperation::getParameters(std::vector<ExprNode *> &params) {

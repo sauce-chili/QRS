@@ -74,6 +74,8 @@ public:
      * */
     virtual bool calculate(unsigned short &args);
 
+    virtual double calculate();
+
     /*!
      * @brief Метод преобразует дерево логического выражения в строковой формат
      * @return строковое представление дерева логического выражения
