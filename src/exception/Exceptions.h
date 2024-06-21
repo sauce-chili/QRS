@@ -2,8 +2,8 @@
 // Created by sc on 08.04.24.
 //
 
-#ifndef MODULWORD_Q_RS_BUILDEXCEPTIONS_H
-#define MODULWORD_Q_RS_BUILDEXCEPTIONS_H
+#ifndef MODULWORD_Q_RS_EXCEPTIONS_H
+#define MODULWORD_Q_RS_EXCEPTIONS_H
 
 
 #include <string>
