@@ -4,7 +4,13 @@ project(ModulWord_Q_RS)
 set(CMAKE_CXX_STANDARD 20)
 
 include_directories(src)
+# Добавление опции для выбора типа сборки
+option(BUILD_TESTS "Build tests" OFF)
 
 add_subdirectory(src)
-add_subdirectory(tests)
-add_subdirectory(lib/googletest)
+
+if(BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(lib/googletest)
+    add_subdirectory(tests)
+endif()
