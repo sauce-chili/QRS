@@ -8,14 +8,14 @@
 std::string BinaryOperation::toString() const {
     std::string result;
     const std::string wrapper[2] = {"(", ")"};
-    result += precedence > leftOpr->getPrecedence() ?
+    result += precedence < leftOpr->getPrecedence() ?
               BuilderUtil::wrapIn(wrapper, leftOpr->toString())
                                                     :
               leftOpr->toString();
 
     result += BuilderUtil::getStrRepresentationNodeType(type);
 
-    result += precedence > rightOpr->getPrecedence() ?
+    result += precedence < rightOpr->getPrecedence() ?
               BuilderUtil::wrapIn(wrapper, rightOpr->toString())
                                                      :
               rightOpr->toString();
@@ -90,7 +90,7 @@ bool BinaryOperation::compareParameters(const ExprNode *other) {
 std::string UnaryOperation::toString() const {
     std::string result = BuilderUtil::getStrRepresentationNodeType(this->type);
     const std::string wrapper[2] = {"(", ")"};
-    result += this->precedence > this->opr->getPrecedence() ?
+    result += this->precedence < this->opr->getPrecedence() ?
               BuilderUtil::wrapIn(wrapper, this->opr->toString())
                                                             :
               this->opr->toString();

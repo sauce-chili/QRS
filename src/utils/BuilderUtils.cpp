@@ -30,8 +30,8 @@ std::unordered_map<EXPR_NODE_TYPE, int> BuilderUtil::precedence = {
         {EXPR_NODE_TYPE::XOR,         12}, // ^
         {EXPR_NODE_TYPE::AND,         14}, // &&
         {EXPR_NODE_TYPE::OR,          15}, // ||
-        {EXPR_NODE_TYPE::VAR,   INT16_MAX}, // variable
-        {EXPR_NODE_TYPE::CONST, INT16_MAX} // const
+        {EXPR_NODE_TYPE::VAR,   INT16_MIN}, // variable
+        {EXPR_NODE_TYPE::CONST, INT16_MIN} // const
 };
 
 std::unordered_map<std::string, EXPR_NODE_TYPE> BuilderUtil::operatorsNodeTypes = {
