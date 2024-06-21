@@ -43,7 +43,7 @@ public :
 class LogicalNodeNOT : public UnaryBinaryOperation {
 
 public:
-    LogicalNodeNOT(ExprNode *opr);
+    explicit LogicalNodeNOT(ExprNode *opr);
 
     bool calculate(unsigned short &params) override;
 };

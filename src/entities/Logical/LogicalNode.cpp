@@ -5,7 +5,9 @@
 
 
 bool LogicalNodeAND::calculate(unsigned short &params) {
-    bool result = this->leftOpr->calculate(params) && this->rightOpr->calculate(params);
+    bool leftResult = this->leftOpr->calculate(params);
+    bool rightResult = this->rightOpr->calculate(params);
+    bool result = leftResult && rightResult;
     return result;
 }
 
@@ -15,7 +17,9 @@ LogicalNodeAND::LogicalNodeAND(ExprNode *leftOpr, ExprNode *rightOpr) : BinaryLo
 }
 
 bool LogicalNodeOR::calculate(unsigned short &params) {
-    bool result = this->leftOpr->calculate(params) || this->rightOpr->calculate(params);
+    bool leftResult = this->leftOpr->calculate(params);
+    bool rightResult = this->rightOpr->calculate(params);
+    bool result = leftResult || rightResult;
     return result;
 }
 
@@ -41,8 +45,6 @@ void BinaryLogicalOperation::getParameters(std::vector<ExprNode *> &params) {
 
 BinaryLogicalOperation::BinaryLogicalOperation(ExprNode *leftOpr, ExprNode *rightOpr) : BinaryOperation(leftOpr,
                                                                                                         rightOpr) {
-    this->leftOpr = leftOpr;
-    this->rightOpr = rightOpr;
 }
 
 void UnaryBinaryOperation::getParameters(std::vector<ExprNode *> &params) {
@@ -50,5 +52,4 @@ void UnaryBinaryOperation::getParameters(std::vector<ExprNode *> &params) {
 }
 
 UnaryBinaryOperation::UnaryBinaryOperation(ExprNode *opr) : UnaryOperation(opr) {
-    this->opr = opr;
 }
