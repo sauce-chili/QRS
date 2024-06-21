@@ -69,7 +69,7 @@ double convertToDecimal(const std::string &str) {
 }
 
 int extractBitOfNumber(int num, int n) {
-    ushort mask = 1 << (n - 1);
-    ushort bit = (num & mask) ? 1 : 0;
+    unsigned short mask = 1 << (n - 1);
+    unsigned short bit = (num & mask) ? 1 : 0;
     return bit;
 }

@@ -22,7 +22,7 @@ private:
     static std::string createHeader(std::vector<ExprNode *> &params);
 
 public:
-    static const uint MAX_COLUMN = 10;
+    static const unsigned int MAX_COLUMN = 10;
 
     /*!
      * @brief Функция создаёт html-код строки значений параметров

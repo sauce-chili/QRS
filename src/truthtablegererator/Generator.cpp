@@ -54,8 +54,8 @@ std::string TruthTableGenerator::createCell(const std::string &val) {
 std::string TruthTableGenerator::createRowsOfValues(ExprNode *root, int countOfParams) {
     std::string rowsOfValues;
     int countOfRow = pow(2, countOfParams);
-    for (ushort p = 0; p < countOfRow; p++) {
-        ushort rp = reverseBits(p,countOfParams);
+    for (unsigned short p = 0; p < countOfRow; p++) {
+        unsigned short rp = reverseBits(p,countOfParams);
         bool result = root->calculate(rp);
         rowsOfValues += createRow(p, countOfParams, result);
     }
@@ -66,7 +66,7 @@ std::string TruthTableGenerator::createRowsOfValues(ExprNode *root, int countOfP
 std::string TruthTableGenerator::createRow(unsigned short args, int countColumns, bool result) {
 
     std::string row;
-    for (ushort bitIdx = 0; bitIdx < countColumns; bitIdx++) {
+    for (unsigned short bitIdx = 0; bitIdx < countColumns; bitIdx++) {
 
         int bit = extractBitOfNumber(args, bitIdx + 1);
 
