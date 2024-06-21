@@ -19,6 +19,8 @@ public:
     std::string toString() const override;
 
     bool compareExprTree(const ExprNode *otherRoot, std::string &pathToDiff, std::string &current) override;
+
+    bool isConstantExpr() const override;
 };
 
 class UnaryOperation : public ExprNode {
@@ -33,6 +35,8 @@ public:
     std::string toString() const override;
 
     bool compareExprTree(const ExprNode *otherRoot, std::string &pathToDiff, std::string &current) override;
+
+    bool isConstantExpr() const override;
 };
 
 #endif //MODULWORD_Q_RS_OPERATION_H

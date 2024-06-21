@@ -141,3 +141,14 @@ bool UnaryOperation::compareParameters(const ExprNode *other) {
 
     return resultCompare;
 }
+
+bool BinaryOperation::isConstantExpr() const {
+    bool leftIsConstExpr = leftOpr->isConstantExpr();
+    bool rightIsConstExpr = rightOpr->isConstantExpr();
+
+    return leftIsConstExpr && rightIsConstExpr;
+};
+
+bool UnaryOperation::isConstantExpr() const {
+    return opr->isConstantExpr();
+}
