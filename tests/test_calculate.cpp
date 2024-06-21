@@ -155,7 +155,30 @@ const vector<CalculateTestParams> commonTestCases = {
                 "a i [] b * 0xFA -$ 5 + && ! x b a i [] * c k + && && ||",
                 0b110,
                 true
+        },
+        // TEST 18
+        {
+                "Calculation_tree_with_constance_arithmetical_expr_1",
+                "false -5 5 + ||",
+                0b0,
+                false
+        },
+        // TEST 19
+        {
+                "Calculation_tree_with_constance_arithmetical_expr_2",
+                "a true 5 + &&",
+                0b1,
+                true
+        },
+        // TEST 20
+        // (!x && !(-0xFA + 250)) || (x && (true || 0xFA) ^ 32)
+        {
+            "Calculation_tree_with_constance_arithmetical_expr_3",
+            "x ! 0xFA -$ 250 + ! && x true 0xFA || 32 ^ && ||",
+            0b1,
+            true
         }
+
 };
 
 INSTANTIATE_TEST_SUITE_P(
