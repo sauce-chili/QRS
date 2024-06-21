@@ -52,3 +52,7 @@ bool ExtraOperandException::operator==(const Exception &other) const {
 ExceedingLimitParametersException::ExceedingLimitParametersException() {
     message = "Превышен предел максимального кол-ва параметров";
 }
+
+ArithmeticCalculationException::ArithmeticCalculationException() {
+    message = "Невозможно арифметически вычислить данное выражение";
+}

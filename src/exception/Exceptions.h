@@ -53,4 +53,9 @@ public:
     ExceedingLimitParametersException();
 };
 
-#endif //MODULWORD_Q_RS_BUILDEXCEPTIONS_H
+class ArithmeticCalculationException : public Exception{
+public:
+    ArithmeticCalculationException();
+};
+
+#endif //MODULWORD_Q_RS_EXCEPTIONS_H
