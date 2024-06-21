@@ -112,14 +112,14 @@ static vector<ExprNodeToStringTestsParam> provideCommonTestCases() {
             // TEST 6
             {
                     "Parse_arithmetical_tree_to_str",
-                    "c b + a b − +",
+                    "c b + a b - +",
                     "c + b + a - b"
             },
             // TEST 7
             {
                     "Parse_tree_with_nodes_different_precedence_lvl_to_str",
                     "c b + a a c - % *",
-                    "(c + b) ∗ (a % (a − c))"
+                    "(c + b) * a % (a - c)"
             },
             // TEST 8
             {
@@ -129,9 +129,15 @@ static vector<ExprNodeToStringTestsParam> provideCommonTestCases() {
             },
             // TEST 9
             {
-                    "Parse_a_complex_tree_to_a_string",
+                    "Parse_a_complex_tree_to_a_string_1",
                     "a i [] b * 5 -$ && ! x b a i [] * && ||",
-                    "!((a[i] * b) && -5) || (x && (b * a[i]))"
+                    "!(a[i] * b && -5) || x && b * a[i]"
+            },
+            // TEST 10
+            {
+                "Parse_a_complex_tree_to_a_string_2",
+                "x ! a i [] b && -$ a i [] ! || && a i [] a i [] b && -$ x || && ||",
+                "! x && (-(a[i] && b) || !a[i]) || a[i] && (-(a[i] && b) || x)"
             }
     };
 }
