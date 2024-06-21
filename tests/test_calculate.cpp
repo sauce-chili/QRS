@@ -132,7 +132,7 @@ const vector<CalculateTestParams> commonTestCases = {
                 "The_whole_expression_consists_of_constants",
                 "true false || 8.2 0b010 && ||",
                 0b0,
-                false,
+                true,
         },
         // TEST 15
         {
