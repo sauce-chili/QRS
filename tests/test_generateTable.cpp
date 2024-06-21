@@ -54,13 +54,13 @@ const vector<GenerateTableTestParams> commonTestCases = {
         {
                 "Generate_table_with_one_parameter",
                 "true a -$ 0xFA + &&",
-                {"a+(-0xFA)", "F"},
+                {"-a+0xFA", "F"},
                 {
                         {"0", "0"},
                         {"1", "1"}
                 }
         },
-        // TEST 2
+        // TEST 2 !(a[i]*b && -0xFA + 5) || x  && c+k
         {
                 "Generate_table_with_several_parameters",
                 "a i [] b * 0xFA -$ 5 + && ! x c k + && ||",

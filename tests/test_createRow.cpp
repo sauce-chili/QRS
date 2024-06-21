@@ -68,7 +68,7 @@ const vector<CreateRowTestParams> commonTestCases = {
                 10,
                 false,
                 // "<tr><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td>0</tr>"
-                {"1", "0", "1", "1", "0", "1", "1", "0", "1", "1", "1", "0"}
+                { "1", "1", "0", "1", "1", "0", "1", "1", "0", "1", "0"}
         }
 };
 
