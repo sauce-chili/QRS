@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include "entities/ExprNode.h"
 #include "builders/ExprNodeBuilder.h"
-#include "exception/BuildExceptions.h"
+#include "exception/Exceptions.h"
 #include "truthtablegererator/Generator.h"
 #include "TestUtils.h"
 

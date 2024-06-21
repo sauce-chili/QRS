@@ -9,7 +9,7 @@
 #include "entities/Arithmetic/ArithmeticNode.h"
 #include "utils/BuilderUtils.h"
 #include "builders/ExprNodeBuilder.h"
-#include "exception/BuildExceptions.h"
+#include "exception/Exceptions.h"
 #include "truthtablegererator/Generator.h"
 #include "TestUtils.h"
 

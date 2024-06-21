@@ -5,7 +5,7 @@
 #include "Generator.h"
 #include "utils/BuilderUtils.h"
 #include "utils/Utils.h"
-#include "exception/BuildExceptions.h"
+#include "exception/Exceptions.h"
 #include <string>
 #include <cmath>
 
@@ -55,7 +55,8 @@ std::string TruthTableGenerator::createRowsOfValues(ExprNode *root, int countOfP
     std::string rowsOfValues;
     int countOfRow = pow(2, countOfParams);
     for (ushort p = 0; p < countOfRow; p++) {
-        bool result = root->calculate(p);
+        ushort rp = reverseBits(p,countOfParams);
+        bool result = root->calculate(rp);
         rowsOfValues += createRow(p, countOfParams, result);
     }
 
