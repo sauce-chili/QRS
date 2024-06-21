@@ -76,7 +76,10 @@ const vector<GetParametersTestsParam> commonTestCases = {
                 //  false && -0xFA+a
                 "Tree_contains_one_parameter_and_one_const",
                 "false 0xFA -$ a + &&",
-                vector<pair<unordered_set<string>, int>>{{{"(-0xFA)+a", "a+(-0xFA)"}, 1}}
+                vector<pair<unordered_set<string>, int>>{
+                        {
+                                {"-0xFA+a", "a+-0xFA"}, 1}
+                }
         },
         // TEST 3
         {
@@ -90,7 +93,7 @@ const vector<GetParametersTestsParam> commonTestCases = {
         },
         // TEST 4
         {
-                // !((a[i] * b) && ((-0xFA) + 5)) || (x && b*i[a])
+                // !((a[i] * b) && (-0xFA + 5)) || (x && b*i[a])
                 "Tree_with_parameters_similar_to_commutative",
                 "a i [] b * 0xFA -$ 5 + && ! x b i a [] * && ||",
                 vector<pair<unordered_set<string>, int>>{
@@ -101,13 +104,13 @@ const vector<GetParametersTestsParam> commonTestCases = {
         },
         // TEST 5
         {
-                // !((a[i]*b)&&((-0xFA) + 5)) || (x && ((b || a[i]) ^ (c+k)))
+                // !(a[i]*b&&-0xFA + 5) || (x && (b || a[i]) ^ c+k)
                 "Logical_operation_nested_within_arithmetical_subtree",
-                "a i [] b * 0xFA -$ 5 + && ! b a i [] || c k + ^ ||",
+                "a i [] b * 0xFA -$ 5 + && ! x b a i [] || c k + ^ && ||",
                 vector<pair<unordered_set<string>, int>>{
                         {{"a[i]*b", "b*a[i]"}, 1},
-                        {{"x"},                  2},
-                        {{"(b||a[i])^c+k"},      3}
+                        {{"x"},                2},
+                        {{"(b||a[i])^c+k"},    3}
                 }
         }
 };
