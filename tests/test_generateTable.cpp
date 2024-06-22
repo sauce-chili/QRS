@@ -125,11 +125,19 @@ const vector<GenerateTableTestParams> commonTestCases = {
                         {"1", "1", "1", "1"}
                 }
         },
+        // TEST 5
         {
-                "Generating_a_table_consisting_of_only_one_constant",
+                "Generating_a_table_consisting_of_only_one_constant_1",
                 "false -5 5 + ||",
                 {"F"},
                 {{"0"}}
+        },
+        // TEST 6
+        {
+                "Generating_a_table_consisting_of_only_one_constant_4",
+                "false -5 4 + ||",
+                {"F"},
+                {{"1"}}
         },
         // TEST 6
         {
