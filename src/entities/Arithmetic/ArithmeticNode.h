@@ -2,8 +2,8 @@
 //// Created by sc on 09.04.24.
 ////
 
-#ifndef MODULWORD_Q_RS_ARITHMETICNODE_H
-#define MODULWORD_Q_RS_ARITHMETICNODE_H
+#ifndef MODULEWORK_Q_RS_ARITHMETICNODE_H
+#define MODULEWORK_Q_RS_ARITHMETICNODE_H
 
 #include "utils/BuilderUtils.h"
 #include "entities/Operation.h"
@@ -92,4 +92,4 @@ public:
     bool isConstantExpr() const override;
 };
 
-#endif //MODULWORD_Q_RS_ARITHMETICNODE_H
+#endif //MODULEWORK_Q_RS_ARITHMETICNODE_H

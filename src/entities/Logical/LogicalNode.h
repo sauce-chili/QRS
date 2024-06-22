@@ -2,8 +2,8 @@
 // Created by sc on 08.04.24.
 //
 
-#ifndef MODULWORD_Q_RS_LOGICALNODEIMPL_H
-#define MODULWORD_Q_RS_LOGICALNODEIMPL_H
+#ifndef MODULEWORK_Q_RS_LOGICALNODEIMPL_H
+#define MODULEWORK_Q_RS_LOGICALNODEIMPL_H
 
 #include "entities/Operation.h"
 #include "utils/BuilderUtils.h"
@@ -91,4 +91,4 @@ public:
     double calculate() override;
 };
 
-#endif //MODULWORD_Q_RS_LOGICALNODEIMPL_H
+#endif //MODULEWORK_Q_RS_LOGICALNODEIMPL_H

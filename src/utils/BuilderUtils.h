@@ -2,8 +2,8 @@
 // Created by sc on 22.04.24.
 //
 #pragma once
-#ifndef MODULWORD_Q_RS_BUILDERUTILS_H
-#define MODULWORD_Q_RS_BUILDERUTILS_H
+#ifndef MODULEWORK_Q_RS_BUILDERUTILS_H
+#define MODULEWORK_Q_RS_BUILDERUTILS_H
 
 
 #include <iostream>
@@ -129,4 +129,4 @@ public:
     static std::string wrapIn(const std::string wrapper[2], const std::string &wrapable);
 };
 
-#endif //MODULWORD_Q_RS_BUILDERUTILS_H
+#endif //MODULEWORK_Q_RS_BUILDERUTILS_H

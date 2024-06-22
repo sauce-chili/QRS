@@ -2,8 +2,8 @@
 // Created by sc on 22.04.24.
 //
 
-#ifndef MODULWORD_Q_RS_GENERATOR_H
-#define MODULWORD_Q_RS_GENERATOR_H
+#ifndef MODULEWORK_Q_RS_GENERATOR_H
+#define MODULEWORK_Q_RS_GENERATOR_H
 
 
 #include <list>
@@ -66,4 +66,4 @@ public:
 };
 
 
-#endif //MODULWORD_Q_RS_GENERATOR_H
+#endif //MODULEWORK_Q_RS_GENERATOR_H

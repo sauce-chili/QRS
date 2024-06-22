@@ -2,8 +2,8 @@
 // Created by sc on 12.06.24.
 //
 
-#ifndef MODULWORD_Q_RS_TESTUTILS_H
-#define MODULWORD_Q_RS_TESTUTILS_H
+#ifndef MODULEWORK_Q_RS_TESTUTILS_H
+#define MODULEWORK_Q_RS_TESTUTILS_H
 
 #include <iostream>
 #include <vector>
@@ -25,5 +25,5 @@ std::vector<std::vector<std::string>> extractValues(const std::string& htmlTable
 void parseHTMLTable(const std::string &html, std::vector<std::string> &headers,
                     std::vector<std::vector<std::string>> &values);
 
-#endif //MODULWORD_Q_RS_TESTUTILS_H
+#endif //MODULEWORK_Q_RS_TESTUTILS_H
 

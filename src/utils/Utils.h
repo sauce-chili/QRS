@@ -2,8 +2,8 @@
 // Created by sc on 20.06.24.
 //
 
-#ifndef MODULWORD_Q_RS_UTILS_H
-#define MODULWORD_Q_RS_UTILS_H
+#ifndef MODULEWORK_Q_RS_UTILS_H
+#define MODULEWORK_Q_RS_UTILS_H
 
 #include <iostream>
 #include <climits>
@@ -98,4 +98,4 @@ T reverseBits(T num, size_t nb = sizeof(T) * CHAR_BIT) {
     return rv;
 }
 
-#endif //MODULWORD_Q_RS_UTILS_H
+#endif //MODULEWORK_Q_RS_UTILS_H

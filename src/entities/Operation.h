@@ -1,8 +1,8 @@
 //
 // Created by sc on 17.04.24.
 //
-#ifndef MODULWORD_Q_RS_OPERATION_H
-#define MODULWORD_Q_RS_OPERATION_H
+#ifndef MODULEWORK_Q_RS_OPERATION_H
+#define MODULEWORK_Q_RS_OPERATION_H
 
 #include "ExprNode.h"
 
@@ -52,4 +52,4 @@ public:
     bool isConstantExpr() const override;
 };
 
-#endif //MODULWORD_Q_RS_OPERATION_H
+#endif //MODULEWORK_Q_RS_OPERATION_H

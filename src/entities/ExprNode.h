@@ -1,8 +1,8 @@
 //
 // Created by sc on 08.04.24.
 //
-#ifndef MODULWORD_Q_RS_EXPRNODE_H
-#define MODULWORD_Q_RS_EXPRNODE_H
+#ifndef MODULEWORK_Q_RS_EXPRNODE_H
+#define MODULEWORK_Q_RS_EXPRNODE_H
 
 #include <iostream>
 #include <map>
@@ -144,4 +144,4 @@ public:
     EXPR_NODE_TYPE getNodeType() const;
 };
 
-#endif //MODULWORD_Q_RS_EXPRNODE_H
+#endif //MODULEWORK_Q_RS_EXPRNODE_H

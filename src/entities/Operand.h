@@ -2,8 +2,8 @@
 // Created by sc on 22.04.24.
 //
 #pragma once
-#ifndef MODULWORD_Q_RS_OPERAND_H
-#define MODULWORD_Q_RS_OPERAND_H
+#ifndef MODULEWORK_Q_RS_OPERAND_H
+#define MODULEWORK_Q_RS_OPERAND_H
 
 #include "ExprNode.h"
 
@@ -24,4 +24,4 @@ public:
 };
 
 
-#endif //MODULWORD_Q_RS_OPERAND_H
+#endif //MODULEWORK_Q_RS_OPERAND_H

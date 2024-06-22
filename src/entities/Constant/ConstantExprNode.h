@@ -2,8 +2,8 @@
 // Created by sc on 14.04.24.
 //
 #pragma once
-#ifndef MODULWORD_Q_RS_CONSTANTEXPRNODE_H
-#define MODULWORD_Q_RS_CONSTANTEXPRNODE_H
+#ifndef MODULEWORK_Q_RS_CONSTANTEXPRNODE_H
+#define MODULEWORK_Q_RS_CONSTANTEXPRNODE_H
 
 
 #include "entities/Operand.h"
@@ -29,4 +29,4 @@ public:
 };
 
 
-#endif //MODULWORD_Q_RS_CONSTANTEXPRNODE_H
+#endif //MODULEWORK_Q_RS_CONSTANTEXPRNODE_H
