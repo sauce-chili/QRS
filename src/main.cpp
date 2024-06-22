@@ -7,12 +7,11 @@
 
 using namespace std;
 
-
 int main(int argc, char *argv[]) {
 
     if (argc != 3) {
-        std::cerr << "Используйте: " << argv[0]
-                  << " <путь до файла с деревом разбора выражения> <путь до выходного файла>" << std::endl;
+        std::cerr << "Use: " << argv[0]
+                  << " <path to file with postfix tree> <path to output file>" << std::endl;
         return 1;
     }
 
@@ -21,7 +20,7 @@ int main(int argc, char *argv[]) {
 
     ifstream inFile(pathToInputFile);
     if (!inFile.is_open()) {
-        std::cerr << "Не удалось открыть файл: " << pathToInputFile << std::endl;
+        std::cerr << "The input file " << pathToInputFile << " specified is incorrect. The file may not exist" << std::endl;
         return 1;
     }
 
@@ -51,7 +50,7 @@ int main(int argc, char *argv[]) {
     // Открываем выходной файл
     std::ofstream outFile(pathToOutputFile);
     if (!outFile.is_open()) {
-        std::cerr << "Не удалось получить доступ к выходному файлу: " << pathToOutputFile << std::endl;
+        std::cerr << "Failed to access output file:" << pathToOutputFile << std::endl;
         return 1;
     }
 
