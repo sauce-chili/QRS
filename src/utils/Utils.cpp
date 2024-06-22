@@ -31,11 +31,6 @@ bool isDecimal(const std::string &str) {
 }
 
 double convertToDecimal(const std::string &str) {
-    if (str == "true") {
-        return 1.0;
-    } else if (str == "false") {
-        return 0.0;
-    }
 
     std::string s = str;
     bool isNegative = false;
