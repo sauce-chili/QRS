@@ -8,11 +8,20 @@
 
 #include "entities/Operand.h"
 
+/**
+ * @brief Класс для представления узлов-констант
+ * */
 class ConstantExprNode : public Operand {
-    double numValue;
+    double numValue; ///< числовое представление значения операнда
+
+    /**
+     * @brief Конвертирует значение операнда в числовое представление
+     * @param[in]val конвертируемое значение
+     * @return числовое представление значения операнда
+     * */
+    double parseToNumValue(std::string val);
 public:
     explicit ConstantExprNode(std::string val);
-
     bool calculate(unsigned short &params) override;
     double calculate() override;
     bool operator==(const ExprNode &other) const override;

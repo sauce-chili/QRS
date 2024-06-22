@@ -7,9 +7,12 @@
 
 #include "ExprNode.h"
 
+/**
+ * @brief Класс для представления узлов-операндов
+ * */
 class Operand : public ExprNode {
 protected:
-    std::string value;
+    std::string value; ///< значение операнда
 public:
     explicit Operand(std::string val);
 
