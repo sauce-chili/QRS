@@ -2,7 +2,6 @@
 // Created by sc on 04.06.24.
 //
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include "entities/ExprNode.h"
 #include "entities/Logical/LogicalNode.h"
 #include "entities/Constant/ConstantExprNode.h"
