@@ -4,24 +4,15 @@
 #include "entities/ExprNode.h"
 #include "builders/ExprNodeBuilder.h"
 #include "truthtablegererator/Generator.h"
+#include <gtest/gtest.h>
 
 using namespace std;
 
-int main(int argc, char *argv[]) {
-
-    if (argc != 3) {
-        std::cerr << "Use: " << argv[0]
-                  << " <path to file with postfix tree> <path to output file>" << std::endl;
-        return 1;
-    }
-
-    string pathToInputFile = argv[1];
-    string pathToOutputFile = argv[2];
-
+void runMainProgram(const string &pathToInputFile, const string &pathToOutputFile) {
     ifstream inFile(pathToInputFile);
     if (!inFile.is_open()) {
         std::cerr << "The input file " << pathToInputFile << " specified is incorrect. The file may not exist" << std::endl;
-        return 1;
+        exit(1);
     }
 
     string postfixTree;
@@ -35,7 +26,7 @@ int main(int argc, char *argv[]) {
         for (const auto &e: exps) {
             std::cerr << e.what() << endl;
         }
-        return 1;
+        exit(1);
     }
 
     string htmlTable;
@@ -44,18 +35,31 @@ int main(int argc, char *argv[]) {
         htmlTable = TruthTableGenerator::generateTable(tree);
     } catch (Exception &e) {
         std::cerr << e.what() << endl;
-        return 1;
+        exit(1);
     }
 
-    // Открываем выходной файл
     std::ofstream outFile(pathToOutputFile);
     if (!outFile.is_open()) {
         std::cerr << "Failed to access output file:" << pathToOutputFile << std::endl;
-        return 1;
+        exit(1);
     }
 
     outFile << htmlTable;
     outFile.close();
+}
 
-    return 0;
+int main(int argc, char *argv[]) {
+    if (argc > 1 && std::string(argv[1]) == "--test") {
+        ::testing::InitGoogleTest(&argc, argv);
+        return RUN_ALL_TESTS();
+    } else if (argc == 3) {
+        string pathToInputFile = argv[1];
+        string pathToOutputFile = argv[2];
+        runMainProgram(pathToInputFile, pathToOutputFile);
+        return 0;
+    } else {
+        std::cerr << "Use: " << argv[0]
+                  << " <path to file with postfix tree> <path to output file> or --test" << std::endl;
+        return 1;
+    }
 }

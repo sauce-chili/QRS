@@ -7,4 +7,15 @@ include_directories(src)
 
 add_subdirectory(lib/googletest)
 add_subdirectory(src)
+
+# Переносим main.cpp на уровень выше
+add_executable(${CMAKE_PROJECT_NAME}_main main.cpp)
+
+# Связываем main с библиотекой
+target_link_libraries(${CMAKE_PROJECT_NAME}_main ${CMAKE_PROJECT_NAME}_lib)
+
+# Включаем подкаталог tests после определения цели main
 add_subdirectory(tests)
+
+# Связываем main с gtest и gtest_main после добавления тестов
+target_link_libraries(${CMAKE_PROJECT_NAME}_main gtest gtest_main)
