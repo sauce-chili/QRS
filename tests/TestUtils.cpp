@@ -1,6 +1,7 @@
 //
 // Created by sc on 12.06.24.
 //
+#include <algorithm>
 #include "TestUtils.h"
 
 static const size_t openTagLength = 4;
