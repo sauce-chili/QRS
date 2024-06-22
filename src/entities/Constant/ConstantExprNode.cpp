@@ -14,7 +14,7 @@ bool ConstantExprNode::calculate(unsigned short &params) {
 ConstantExprNode::ConstantExprNode(std::string val) : Operand(val) {
     this->type = EXPR_NODE_TYPE::CONST;
     this->precedence = BuilderUtil::getPrecedenceLvl(type);
-    this->numValue = convertToDecimal(val);
+    this->numValue = parseToNumValue(val);
 }
 
 bool ConstantExprNode::isConstantExpr() const {
@@ -33,4 +33,13 @@ bool ConstantExprNode::operator==(const ExprNode &other) const {
 
 double ConstantExprNode::calculate() {
     return numValue;
+}
+
+double ConstantExprNode::parseToNumValue(std::string val) {
+    if (val == "true") {
+        return 1.0;
+    } else if (val == "false") {
+        return 0.0;
+    }
+    return convertToDecimal(val);
 }
