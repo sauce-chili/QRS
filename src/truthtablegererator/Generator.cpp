@@ -13,6 +13,33 @@ const std::string TruthTableGenerator::CELL_TAGS[2] = {"<td>", "</td>"};
 const std::string TruthTableGenerator::ROW_TAGS[2] = {"<tr>", "</tr>"};
 const std::string TruthTableGenerator::TABLE_TAGS[2] = {"<table>", "</table>"};
 
+const std::string TruthTableGenerator::HTML_DOC_WRAPPER[2] = {
+        R"(<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 8px;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+)",
+        R"(
+</body>
+</html>
+)"
+};
+
 std::string TruthTableGenerator::generateTable(ExprNode *root) {
 
     std::vector<ExprNode *> params;
@@ -21,13 +48,14 @@ std::string TruthTableGenerator::generateTable(ExprNode *root) {
     int countParameters = params.size();
 
     if (countParameters > MAX_COLUMN) {
-        throw ExceedingLimitParametersException();
+        throw ExceedingLimitParametersException(MAX_COLUMN);
     }
 
     std::string table;
     table += createHeader(params);
     table += createRowsOfValues(root, countParameters);
     table = BuilderUtil::wrapIn(TABLE_TAGS, table);
+    table = BuilderUtil::wrapIn(HTML_DOC_WRAPPER, table);
 
     return table;
 }
@@ -55,7 +83,7 @@ std::string TruthTableGenerator::createRowsOfValues(ExprNode *root, int countOfP
     std::string rowsOfValues;
     int countOfRow = pow(2, countOfParams);
     for (unsigned short p = 0; p < countOfRow; p++) {
-        unsigned short rp = reverseBits(p,countOfParams);
+        unsigned short rp = reverseBits(p, countOfParams);
         bool result = root->calculate(rp);
         rowsOfValues += createRow(p, countOfParams, result);
     }
