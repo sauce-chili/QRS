@@ -35,6 +35,10 @@ ExprNode *ExprNodeBuilder::buildExprTree(string postfixExpr, list<Exception> &ex
         }
     }
 
+    if (not exps.empty()) {
+        return nullptr;
+    }
+
     pair<int, ExprNode *> topElem = stack.top();
     stack.pop();
 
@@ -47,8 +51,8 @@ ExprNode *ExprNodeBuilder::buildExprTree(string postfixExpr, list<Exception> &ex
     bool topElemIsNotOperation = topElem.second->getNodeType() == EXPR_NODE_TYPE::VAR
                                  || topElem.second->getNodeType() == EXPR_NODE_TYPE::CONST;
 
-    if (topElemIsNotOperation){
-        exps.push_back(ExtraOperandException(topElem.second->toString(), topElem.first));
+    if (topElemIsNotOperation) {
+        exps.push_back(ExtraOperandException(topElem.second->toString(), topElem.first + 1));
     }
     while (not stack.empty()) {
         auto extraElem = stack.top();
