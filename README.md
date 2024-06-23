@@ -74,7 +74,6 @@ a 0 [] 0 [] b + 18e-10 * c -$ 0 != &&
 <h2><b>Иерархия</b></h2>
 
 <ul>
-<li>cmake-build-release/ModuleWork_Q_RS_main.exe - Исполняемый файл приложения</li>
 <li>src
 <ul>
 <li>builders/ExprNodeBuilder - Cодержит вспомогательный класс для построения узлов дерева.</li>
