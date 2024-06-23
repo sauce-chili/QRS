@@ -59,9 +59,3 @@ std::vector<std::vector<std::string>> extractValues(const std::string &htmlTable
     }
     return values;
 }
-
-void parseHTMLTable(const std::string &html, std::vector<std::string> &headers,
-                    std::vector<std::vector<std::string>> &values) {
-    headers = extractHeaders(html);
-    values = extractValues(html);
-}
