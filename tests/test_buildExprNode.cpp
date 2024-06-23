@@ -177,7 +177,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                     {}
             },
             // TEST 8
-            // !(a[i] * b && -0xFA) || (x && b * a[i])
+            // !(a[i] * b && -0xFA) || (x && (b * a[i]))
             {
                     "Building_a_complex_tree",
                     "a i [] b * 0xFA -$ && ! x b a i [] * && ||",
@@ -235,7 +235,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
             },
             // TEST 11
             {
-                    "Missing_operand",
+                    "Missing_operand_of_binary_operation",
                     "a b + +",
                     []() -> unique_ptr<ExprNode> {
                         return nullptr;
@@ -250,7 +250,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                         return nullptr;
                     },
                     {
-                            UnexpectedElementException("++", 3)
+                     UnexpectedElementException("++", 3)
                     }
             },
             // TEST 13
@@ -275,6 +275,24 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                             ExtraOperandException("c", 1)
 
                     }
+            },
+            // TEST 15
+            {
+                    "Missing_operand_of_unary_operation",
+                    "-$",
+                    []() -> unique_ptr<ExprNode> {
+                        return nullptr;
+                    },
+                    {MissingOperand("-$", 1)}
+            },
+            // TEST 16
+            {
+                    "All_operands_of_the_operation_are_missing",
+                    "&&",
+                    []() -> unique_ptr<ExprNode> {
+                        return nullptr;
+                    },
+                    {MissingOperand("&&", 1)}
             }
     };
 };
