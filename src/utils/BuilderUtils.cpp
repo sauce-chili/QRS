@@ -154,10 +154,6 @@ std::string BuilderUtil::getStrRepresentationNodeType(EXPR_NODE_TYPE type) {
     return strOperationNodeType[type];
 }
 
-std::string BuilderUtil::wrapIn(const std::string wrapper[2], const std::string &wrapable) {
-    return wrapper[0] + wrapable + wrapper[1];
-}
-
 std::function<double(double, double)> BuilderUtil::getBinaryArithmeticalCalculator(EXPR_NODE_TYPE type) {
     return binaryArithmeticalCalculator[type];
 }

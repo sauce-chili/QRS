@@ -9,6 +9,21 @@
 #include <climits>
 
 /**
+ * @brief Метод оборачивает @p wrapable в пару значений @p wrapper[2]
+ * @param[in] wrapper обертка для значения @p wrapable
+ * @param[in] wrapable оборачиваемое значение
+ * @return обернутое в пару @p wrapper значение.
+ *
+ * Пример использования:
+ * @code
+ *  string wrapper[2] = {"(", ")"};
+ *  string wrapable = "a + b";
+ *  wrapIn(wrapper, wrapable); // result: (a+b)
+ * @endcode
+ * */
+std::string wrapIn(const std::string wrapper[2], const std::string &wrapable);
+
+/**
  * @brief Функция проверяет, является ли строка двоичным числом.
  *
  * @details Эта функция поверяет, состоит ли строка только из символов '0' и '1', что делает её допустимым двоичным числом.

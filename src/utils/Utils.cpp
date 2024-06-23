@@ -10,6 +10,10 @@
 #include <stdexcept>
 #include <cstdlib>
 
+std::string wrapIn(const std::string wrapper[2], const std::string &wrapable) {
+    return wrapper[0] + wrapable + wrapper[1];
+}
+
 bool isBinary(const std::string &str) {
     std::regex binaryPattern(R"(^[-+]?0[bB][01]+$)");
     return std::regex_match(str, binaryPattern);
