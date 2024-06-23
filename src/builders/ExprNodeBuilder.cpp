@@ -98,6 +98,7 @@ void ExprNodeBuilder::buildOperationNode(EXPR_NODE_TYPE type, int idxOperation, 
     }
 }
 
+
 void ExprNodeBuilder::buildLogicalNode(EXPR_NODE_TYPE type, int idxOperation, stack<pair<int, ExprNode *>> &stack) {
     auto right = stack.top().second;
     stack.pop();
@@ -126,8 +127,9 @@ void ExprNodeBuilder::buildLogicalNode(EXPR_NODE_TYPE type, int idxOperation, st
     }
 }
 
-void
-ExprNodeBuilder::buildArithmeticalNode(EXPR_NODE_TYPE type, int idxOperation, stack<pair<int, ExprNode *>> &stack) {
+void ExprNodeBuilder::buildArithmeticalNode(EXPR_NODE_TYPE type,
+                                            int idxOperation,
+                                            stack<pair<int, ExprNode *>> &stack) {
     auto right = stack.top().second;
     stack.pop();
 

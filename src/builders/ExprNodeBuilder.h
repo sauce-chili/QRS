@@ -11,16 +11,49 @@
 
 class ExprNodeBuilder {
 
+    /**
+     * @brief Метод создаёт узел дерева на основе элемента выражения.
+     *
+     * @param elem [in] Элемент выражения.
+     * @param idxElem [in] индекс элемента в выражении.
+     * @param stack [in, out] стек для хранения узлов дерева и их индекса в выражении.
+     *
+     * @throw UnexpectedElementException если элемент выражения имеет неопределённый тип.
+     * @throw MissingOperand Если недостаточно операндов для создания узла-оператора.
+     */
     static void buildNode(const std::string &elem, int idxElem, std::stack<std::pair<int, ExprNode *>> &stack);
 
+    /**
+     * @brief Метод создаёт узел операции.
+     *
+     * @param type [in] тип узла операции.
+     * @param idxOperation [in] индекс операции в выражении.
+     * @param stack [in, out] стек для хранения узлов дерева и их индекса в выражении.
+     *
+     * @throw MissingOperand Если недостаточно операндов для создания операции.
+     */
     static void buildOperationNode(EXPR_NODE_TYPE type,
                        int idxOperation,
                        std::stack<std::pair<int, ExprNode *>> &stack);
 
+    /**
+     * @brief Метод создаёт логический узел.
+     *
+     * @param type [in] тип логической операции.
+     * @param idxOperation [in] индекс операции в записи выражения.
+     * @param stack [in, out] стек для хранения узлов дерева и их индекса в выражении.
+     */
     static void buildLogicalNode(EXPR_NODE_TYPE type,
                                  int idxOperation,
                                  std::stack<std::pair<int, ExprNode *>> &stack);
 
+    /**
+     * @brief Метод создаёт арифметический узел.
+     *
+     * @param type [in] тип арифметической операции.
+     * @param idxOperation [in] индекс операции в записи выражения.
+     * @param stack [in, out] стек для хранения узлов дерева и их индекса в выражении.
+     */
     static void buildArithmeticalNode(EXPR_NODE_TYPE type,
                                       int idxOperation,
                                       std::stack<std::pair<int, ExprNode *>> &stack);
