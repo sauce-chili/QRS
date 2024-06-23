@@ -93,16 +93,18 @@ $(function(){ initResizable(false); });
 <div class="textblock"><code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
-<code>#include &quot;entities/ExprNode.h&quot;</code><br />
-<code>#include &quot;builders/ExprNodeBuilder.h&quot;</code><br />
-<code>#include &quot;truthtablegererator/Generator.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="_expr_node_8h_source.html">entities/ExprNode.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_expr_node_builder_8h_source.html">builders/ExprNodeBuilder.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_generator_8h_source.html">truthtablegererator/Generator.h</a>&quot;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a459a14fff1aacfcc5b6b48ad080d81e7" id="r_a459a14fff1aacfcc5b6b48ad080d81e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a459a14fff1aacfcc5b6b48ad080d81e7">runMainProgram</a> (const string &amp;pathToInputFile, const string &amp;pathToOutputFile)</td></tr>
+<tr class="memdesc:a459a14fff1aacfcc5b6b48ad080d81e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Запускает основную программу.  <br /></td></tr>
 <tr class="separator:a459a14fff1aacfcc5b6b48ad080d81e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97" id="r_a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ddf1224851353fc92bfbff6f499fa97">main</a> (int argc, char *argv[])</td></tr>
+<tr class="memdesc:a0ddf1224851353fc92bfbff6f499fa97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Точка входа в программу.  <br /></td></tr>
 <tr class="separator:a0ddf1224851353fc92bfbff6f499fa97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -125,6 +127,27 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Точка входа в программу. </p>
+<p>Функция проверяет аргументы командной строки и запускает программу в соответствующем режиме. Если аргументы соответствуют режиму тестирования, запускаются тесты. В противном случае запускается основная программа с переданными путями к входному и выходному файлам.</p>
+<dl class="section note"><dt>Note</dt><dd>При <code>argc=2</code> и <code>argv</code>[1]=--test - запускаются тесты <br  />
+</dd>
+<dd>
+При <code>argc=3</code> - запускается основная программа, где параметры: <br  />
+<code>argv</code>[1] - путь к входному файлу с разбором логического выражения, записанного в постфиксном формате <br  />
+<code>argv</code>[2] - путь к выходному файлу, где будет содержаться html код таблицы истинности <br  />
+ </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argc</td><td>Количество аргументов командной строки. </td></tr>
+    <tr><td class="paramname">argv</td><td>Массив аргументов командной строки. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int Код возврата. 0 - успешное завершение, 1 - ошибка.</dd></dl>
+<p>Запуск программы из консоли для Windows. <br  />
+ Для запуска тестов: </p><div class="fragment"><div class="line">ModuleWork_Q_RS_main.exe --test # запускает тесты</div>
+</div><!-- fragment --><p>Для запуска основной программы: </p><div class="fragment"><div class="line">ModuleWork_Q_RS_main.exe input.txt out.html</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a459a14fff1aacfcc5b6b48ad080d81e7" name="a459a14fff1aacfcc5b6b48ad080d81e7"></a>
@@ -145,6 +168,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Запускает основную программу. </p>
+<p>Функция читает выражение из входного файла, строит дерево выражений, генерирует таблицу истинности и записывает её в выходной файл.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pathToInputFile</td><td>Путь к входному файлу, содержащему постфиксное выражение. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pathToOutputFile</td><td>Путь к выходному файлу, в который будет записана таблица истинности. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>таблица истинности в указанном файле <code>pathToOutputFile</code> </dd></dl>
 
 </div>
 </div>

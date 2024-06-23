@@ -1135,7 +1135,7 @@ IMAGE_PATH             =
 # directories like "/usr/src/myproject". Separate the files or directories with
 # spaces.
 
-INPUT                  = .\src .\tests
+INPUT                  = . .\src .\tests
 
 INPUT_FILTER           =
 
