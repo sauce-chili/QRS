@@ -3,6 +3,7 @@
 //
 #include <regex>
 #include "ExprNodeBuilder.h"
+#include "utils/Utils.h"
 #include "utils/BuilderUtils.h"
 #include "entities/Logical/LogicalNode.h"
 #include "entities/Arithmetic/ArithmeticNode.h"
@@ -18,6 +19,7 @@ ExprNode *ExprNodeBuilder::buildExprTree(string postfixExpr, list<Exception> &ex
     }
 
     // splitting str by spaces
+    postfixExpr = trim(postfixExpr);
     regex sepReg("\\s+"); // once or more spaces
     vector<string> splitted(
             sregex_token_iterator(postfixExpr.begin(), postfixExpr.end(), sepReg, -1),
