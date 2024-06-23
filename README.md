@@ -71,6 +71,15 @@ a 0 [] 0 [] b + 18e-10 * c -$ 0 != &&
 
 ---
 
+<h2><b>Внешняя спецификация</b></h2>
+
+<p>
+Более подробная информация о формате входных и выходных данных: <br />
+<a href=https://docs.google.com/document/d/1DSh5z7WBFEKwbmRdkmkhIPLfz9cHcANkhCNKmrKGdig/edit?usp=sharing>https://docs.google.com/document/d/1DSh5z7WBFEKwbmRdkmkhIPLfz9cHcANkhCNKmrKGdig/edit?usp=sharing</a><br/>
+</p>
+
+---
+
 <h2><b>Иерархия</b></h2>
 
 <ul>
