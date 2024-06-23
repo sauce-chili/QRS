@@ -6,6 +6,7 @@
 #include "utils/BuilderUtils.h"
 #include "builders/ExprNodeBuilder.h"
 #include "exception/Exceptions.h"
+#include "utils/Utils.h"
 #include "TestUtils.h"
 
 using namespace std;

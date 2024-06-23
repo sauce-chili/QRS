@@ -3,21 +3,11 @@
 //
 #include <algorithm>
 #include "TestUtils.h"
+#include "utils/Utils.h"
 
 static const size_t openTagLength = 4;
 static const size_t closeTagLength = 5;
 
-void removeWhiteSeparators(std::string &s) {
-    s.erase(
-            std::remove_if(s.begin(), s.end(),
-                           [](unsigned char c) { return std::isspace(c); }), s.end());
-}
-
-std::string trim(const std::string &str) {
-    size_t first = str.find_first_not_of(' ');
-    size_t last = str.find_last_not_of(' ');
-    return str.substr(first, (last - first + 1));
-}
 
 std::vector<std::string> extractRowData(const std::string &htmlRow) {
     std::vector<std::string> rowData;

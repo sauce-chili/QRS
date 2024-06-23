@@ -7,6 +7,7 @@
 #include "entities/Constant/ConstantExprNode.h"
 #include "entities/Arithmetic/ArithmeticNode.h"
 #include "utils/BuilderUtils.h"
+#include "utils/Utils.h"
 #include "builders/ExprNodeBuilder.h"
 #include "exception/Exceptions.h"
 #include "TestUtils.h"

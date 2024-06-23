@@ -10,6 +10,21 @@
 #include <stdexcept>
 #include <cstdlib>
 
+void removeWhiteSeparators(std::string &s) {
+    s.erase(
+            std::remove_if(s.begin(), s.end(),
+                           [](unsigned char c) { return std::isspace(c); }), s.end());
+}
+
+std::string trim(const std::string &str, const std::string &predicate) {
+    size_t first = str.find_first_not_of(predicate);
+    if (first == std::string::npos) {
+        return "";
+    }
+    size_t last = str.find_last_not_of(predicate);
+    return str.substr(first, (last - first + 1));
+}
+
 std::string wrapIn(const std::string wrapper[2], const std::string &wrapable) {
     return wrapper[0] + wrapable + wrapper[1];
 }

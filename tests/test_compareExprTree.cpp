@@ -3,7 +3,7 @@
 //
 #include <gtest/gtest.h>
 #include "entities/ExprNode.h"
-#include "TestUtils.h"
+#include "utils/Utils.h"
 #include "entities/Logical/LogicalNode.h"
 #include "entities/Constant/ConstantExprNode.h"
 #include "entities/Arithmetic/ArithmeticNode.h"

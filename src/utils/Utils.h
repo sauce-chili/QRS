@@ -9,6 +9,21 @@
 #include <climits>
 
 /**
+ * @brief Функция удаляет все пробельные символы из строки.
+ *
+ * @param s [in, out] Строка, из которой нужно удалить пробельные символы.
+ */
+void removeWhiteSeparators(std::string &s);
+
+/**
+ * @brief Функция удаляет пробельные символы в начале и конце строки.
+ *
+ * @param str [in] Строка, которую нужно обрезать.
+ * @return Новая строка без пробельных символов в начале и конце.
+ */
+std::string trim(const std::string &str, const std::string &predicate = " \t");
+
+/**
  * @brief Метод оборачивает @p wrapable в пару значений @p wrapper[2]
  * @param[in] wrapper обертка для значения @p wrapable
  * @param[in] wrapable оборачиваемое значение
