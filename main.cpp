@@ -8,6 +8,16 @@
 
 using namespace std;
 
+/**
+ * @brief Запускает основную программу.
+ *
+ * @details Функция читает выражение из входного файла, строит дерево выражений,
+ * генерирует таблицу истинности и записывает её в выходной файл.
+ *
+ * @param[in] pathToInputFile Путь к входному файлу, содержащему постфиксное выражение.
+ * @param[in] pathToOutputFile Путь к выходному файлу, в который будет записана таблица истинности.
+ * @result таблица истинности в указанном файле @p pathToOutputFile
+ */
 void runMainProgram(const string &pathToInputFile, const string &pathToOutputFile) {
     ifstream inFile(pathToInputFile);
     if (!inFile.is_open()) {
@@ -48,6 +58,35 @@ void runMainProgram(const string &pathToInputFile, const string &pathToOutputFil
     outFile.close();
 }
 
+/**
+ * @brief Точка входа в программу.
+ *
+ * @details Функция проверяет аргументы командной строки и запускает программу в
+ * соответствующем режиме. Если аргументы соответствуют режиму тестирования,
+ * запускаются тесты. В противном случае запускается основная программа с
+ * переданными путями к входному и выходному файлам.
+ *
+ * @note При @p argc=2 и @p argv[1]=--test - запускаются тесты \n
+ * @note При @p argc=3 - запускается основная программа, где параметры: \n
+ * @p argv[1] - путь к входному файлу с разбором логического выражения, записанного в постфиксном формате \n
+ * @p argv[2] - путь к выходному файлу, где будет содержаться html код таблицы истинности \n
+ *
+ * @param argc Количество аргументов командной строки.
+ * @param argv Массив аргументов командной строки.
+ * @return int Код возврата. 0 - успешное завершение, 1 - ошибка.
+ *
+ * Запуск программы из консоли для Windows. \n
+ *
+ * Для запуска тестов:
+ * @code
+ * ModuleWork_Q_RS_main.exe --test # запускает тесты
+ * @endcode
+ *
+ * Для запуска основной программы:
+  * @code
+ * ModuleWork_Q_RS_main.exe input.txt out.html
+ * @endcode
+ */
 int main(int argc, char *argv[]) {
     if (argc > 1 && std::string(argv[1]) == "--test") {
         ::testing::InitGoogleTest(&argc, argv);
