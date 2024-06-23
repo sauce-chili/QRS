@@ -115,6 +115,3 @@ a 0 [] 0 [] b + 18e-10 * c -$ 0 != &&
 <p>
 
 <a href=https://github.com/sauce-chili/QRS> Репозиторий</a> <br/>
-
-<a href=..>Архив</a>
-</p>
