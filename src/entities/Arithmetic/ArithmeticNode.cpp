@@ -36,7 +36,8 @@ std::string ArrayArithmeticNode::toString() const {
     const std::string wrapper[2] = {"(", ")"};
 
     // Если leftOpr ссылается на операцию, добавляем скобки вокруг toString() вызова
-    if (dynamic_cast<BinaryOperation *>(leftOpr) || dynamic_cast<UnaryOperation *>(leftOpr)) {
+if (leftOpr->getNodeType() != EXPR_NODE_TYPE::ARR &&
+        (dynamic_cast<BinaryOperation *>(leftOpr) || dynamic_cast<UnaryOperation *>(leftOpr))) {
         result += BuilderUtil::wrapIn(wrapper, this->leftOpr->toString());
     } else {
         result += this->leftOpr->toString();
