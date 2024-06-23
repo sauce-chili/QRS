@@ -54,7 +54,7 @@ protected:
      * <u>корня</u>. Если @p this не найдет, то возврается nullptr. Для сравния параметров используется ExprNode::compareParameters
      * @param[in] params - список параметров, где будет выполняться поиск
      * @return элемент из @p params совпавший с @p this или nullptr, если @p this не найден.
-     * @example Одинаковыми будут считаться параметы a + b ^ c и b ^ c + a, однако a + (b ^ c) и (c ^ b) + a будут считаться разными параметрами
+     * @example Одинаковые_параметры одинаковыми будут считаться параметы a + b ^ c и b ^ c + a, однако a + (b ^ c) и (c ^ b) + a будут считаться разными параметрами
      * @see ExprNode::compareParameters
      * */
      ExprNode* findParameter(std::vector<ExprNode *> &params); // метод поиска параметра
