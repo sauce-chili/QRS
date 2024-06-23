@@ -44,6 +44,10 @@ echo. > %testDir%\out_7.html
 echo. > %testDir%\out_8.html
 %exePath% %testDir%\in_8.txt %testDir%\out_8.html
 
+:: Лишние пробелы и табы в начале и конце строки
+echo. > %testDir%\out_16.html
+%exePath% %testDir%\in_16.txt %testDir%\out_16.html
+
 :: Проверка обработки ошибок:
 
 :: Пустое дерево
