@@ -97,15 +97,10 @@ $(function(){ initResizable(false); });
 <div class="contents">
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
 <code>#include &quot;<a class="el" href="_test_utils_8h_source.html">TestUtils.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_utils_8h_source.html">utils/Utils.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad6bdd091eabda4324fc0635eb04ab8da" id="r_ad6bdd091eabda4324fc0635eb04ab8da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6bdd091eabda4324fc0635eb04ab8da">removeWhiteSeparators</a> (std::string &amp;s)</td></tr>
-<tr class="memdesc:ad6bdd091eabda4324fc0635eb04ab8da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция удаляет все пробельные символы из строки.  <br /></td></tr>
-<tr class="separator:ad6bdd091eabda4324fc0635eb04ab8da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a01f705cc7b4a7317a57f6bf41aef25" id="r_a5a01f705cc7b4a7317a57f6bf41aef25"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a01f705cc7b4a7317a57f6bf41aef25">trim</a> (const std::string &amp;str)</td></tr>
-<tr class="memdesc:a5a01f705cc7b4a7317a57f6bf41aef25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция удаляет пробельные символы в начале и конце строки.  <br /></td></tr>
-<tr class="separator:a5a01f705cc7b4a7317a57f6bf41aef25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04825de37758e81abb6393df5cd0b32c" id="r_a04825de37758e81abb6393df5cd0b32c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04825de37758e81abb6393df5cd0b32c">extractRowData</a> (const std::string &amp;htmlRow)</td></tr>
 <tr class="memdesc:a04825de37758e81abb6393df5cd0b32c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция извлекает данные из строки, представляющей строку таблицы HTML.  <br /></td></tr>
 <tr class="separator:a04825de37758e81abb6393df5cd0b32c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -199,57 +194,6 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Вектор векторов строк, содержащий значения из ячеек таблицы. </dd></dl>
-
-</div>
-</div>
-<a id="ad6bdd091eabda4324fc0635eb04ab8da" name="ad6bdd091eabda4324fc0635eb04ab8da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6bdd091eabda4324fc0635eb04ab8da">&#9670;&#160;</a></span>removeWhiteSeparators()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void removeWhiteSeparators </td>
-          <td>(</td>
-          <td class="paramtype">std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>s</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Функция удаляет все пробельные символы из строки. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">s</td><td>[in, out] Строка, из которой нужно удалить пробельные символы. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a5a01f705cc7b4a7317a57f6bf41aef25" name="a5a01f705cc7b4a7317a57f6bf41aef25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a01f705cc7b4a7317a57f6bf41aef25">&#9670;&#160;</a></span>trim()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string trim </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>str</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Функция удаляет пробельные символы в начале и конце строки. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">str</td><td>[in] Строка, которую нужно обрезать. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Новая строка без пробельных символов в начале и конце. </dd></dl>
 
 </div>
 </div>

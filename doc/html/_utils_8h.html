@@ -101,6 +101,12 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ad6bdd091eabda4324fc0635eb04ab8da" id="r_ad6bdd091eabda4324fc0635eb04ab8da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6bdd091eabda4324fc0635eb04ab8da">removeWhiteSeparators</a> (std::string &amp;s)</td></tr>
+<tr class="memdesc:ad6bdd091eabda4324fc0635eb04ab8da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция удаляет все пробельные символы из строки.  <br /></td></tr>
+<tr class="separator:ad6bdd091eabda4324fc0635eb04ab8da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6567ee4cb7678357ba6935f7b4682715" id="r_a6567ee4cb7678357ba6935f7b4682715"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6567ee4cb7678357ba6935f7b4682715">trim</a> (const std::string &amp;str, const std::string &amp;predicate=&quot; \t&quot;)</td></tr>
+<tr class="memdesc:a6567ee4cb7678357ba6935f7b4682715"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция удаляет пробельные символы в начале и конце строки.  <br /></td></tr>
+<tr class="separator:a6567ee4cb7678357ba6935f7b4682715"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0573a9467758fd082687d868db216249" id="r_a0573a9467758fd082687d868db216249"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0573a9467758fd082687d868db216249">wrapIn</a> (const std::string wrapper[2], const std::string &amp;wrapable)</td></tr>
 <tr class="memdesc:a0573a9467758fd082687d868db216249"><td class="mdescLeft">&#160;</td><td class="mdescRight">Метод оборачивает <code>wrapable</code> в пару значений <code>wrapper</code>[2].  <br /></td></tr>
 <tr class="separator:a0573a9467758fd082687d868db216249"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -297,6 +303,31 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad6bdd091eabda4324fc0635eb04ab8da" name="ad6bdd091eabda4324fc0635eb04ab8da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6bdd091eabda4324fc0635eb04ab8da">&#9670;&#160;</a></span>removeWhiteSeparators()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void removeWhiteSeparators </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>s</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Функция удаляет все пробельные символы из строки. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>[in, out] Строка, из которой нужно удалить пробельные символы. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a9795c49347dc326cb9352eb83ca7a05c" name="a9795c49347dc326cb9352eb83ca7a05c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9795c49347dc326cb9352eb83ca7a05c">&#9670;&#160;</a></span>reverseBits()</h2>
 
@@ -343,8 +374,38 @@ template&lt;typename T &gt; </div>
 <dl class="section note"><dt>Note</dt><dd>Если <code>nb</code> не указано, по умолчанию используется количество бит в числе типа <code>T</code>.</dd></dl>
 <p>Пример использования: </p><div class="fragment"><div class="line">uint8_t x = 0b00001111;</div>
 <div class="line">uint8_t y = <a class="code hl_function" href="#a9795c49347dc326cb9352eb83ca7a05c">reverseBits</a>(x, 8); <span class="comment">// y будет равно 0b11110000</span></div>
-<div class="ttc" id="a_utils_8h_html_a9795c49347dc326cb9352eb83ca7a05c"><div class="ttname"><a href="#a9795c49347dc326cb9352eb83ca7a05c">reverseBits</a></div><div class="ttdeci">T reverseBits(T num, size_t nb=sizeof(T) *CHAR_BIT)</div><div class="ttdoc">Функция разворачивает заданное количество битов в числа.</div><div class="ttdef"><b>Definition</b> Utils.h:101</div></div>
+<div class="ttc" id="a_utils_8h_html_a9795c49347dc326cb9352eb83ca7a05c"><div class="ttname"><a href="#a9795c49347dc326cb9352eb83ca7a05c">reverseBits</a></div><div class="ttdeci">T reverseBits(T num, size_t nb=sizeof(T) *CHAR_BIT)</div><div class="ttdoc">Функция разворачивает заданное количество битов в числа.</div><div class="ttdef"><b>Definition</b> Utils.h:116</div></div>
 </div><!-- fragment --> 
+</div>
+</div>
+<a id="a6567ee4cb7678357ba6935f7b4682715" name="a6567ee4cb7678357ba6935f7b4682715"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6567ee4cb7678357ba6935f7b4682715">&#9670;&#160;</a></span>trim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string trim </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>str</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>predicate</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&#160;\t&quot;</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Функция удаляет пробельные символы в начале и конце строки. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>[in] Строка, которую нужно обрезать. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Новая строка без пробельных символов в начале и конце. </dd></dl>
+
 </div>
 </div>
 <a id="a0573a9467758fd082687d868db216249" name="a0573a9467758fd082687d868db216249"></a>
@@ -378,7 +439,7 @@ template&lt;typename T &gt; </div>
 <p>Пример использования: </p><div class="fragment"><div class="line"><span class="keywordtype">string</span> wrapper[2] = {<span class="stringliteral">&quot;(&quot;</span>, <span class="stringliteral">&quot;)&quot;</span>};</div>
 <div class="line"><span class="keywordtype">string</span> wrapable = <span class="stringliteral">&quot;a + b&quot;</span>;</div>
 <div class="line"><a class="code hl_function" href="_utils_8cpp.html#a0573a9467758fd082687d868db216249">wrapIn</a>(wrapper, wrapable); <span class="comment">// result: (a+b)</span></div>
-<div class="ttc" id="a_utils_8cpp_html_a0573a9467758fd082687d868db216249"><div class="ttname"><a href="_utils_8cpp.html#a0573a9467758fd082687d868db216249">wrapIn</a></div><div class="ttdeci">std::string wrapIn(const std::string wrapper[2], const std::string &amp;wrapable)</div><div class="ttdoc">Метод оборачивает wrapable в пару значений wrapper[2].</div><div class="ttdef"><b>Definition</b> Utils.cpp:13</div></div>
+<div class="ttc" id="a_utils_8cpp_html_a0573a9467758fd082687d868db216249"><div class="ttname"><a href="_utils_8cpp.html#a0573a9467758fd082687d868db216249">wrapIn</a></div><div class="ttdeci">std::string wrapIn(const std::string wrapper[2], const std::string &amp;wrapable)</div><div class="ttdoc">Метод оборачивает wrapable в пару значений wrapper[2].</div><div class="ttdef"><b>Definition</b> Utils.cpp:28</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
