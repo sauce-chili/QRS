@@ -12,7 +12,7 @@ using namespace std;
 
 ExprNode *ExprNodeBuilder::buildExprTree(string postfixExpr, list<Exception> &exps) {
 
-    if(postfixExpr.empty()){
+    if (postfixExpr.empty()) {
         exps.push_back(EmptyTreeException());
         return nullptr;
     }
@@ -35,14 +35,22 @@ ExprNode *ExprNodeBuilder::buildExprTree(string postfixExpr, list<Exception> &ex
         }
     }
 
-    ExprNode* root = stack.top().second;
+    pair<int, ExprNode *> topElem = stack.top();
     stack.pop();
 
     if (stack.empty()) {
-        return root;
+        return topElem.second;
     }
+
     // if stack isn't empty, when add in exceptions all extra elems
-    while (not stack.empty()){
+
+    bool topElemIsNotOperation = topElem.second->getNodeType() == EXPR_NODE_TYPE::VAR
+                                 || topElem.second->getNodeType() == EXPR_NODE_TYPE::CONST;
+
+    if (topElemIsNotOperation){
+        exps.push_back(ExtraOperandException(topElem.second->toString(), topElem.first));
+    }
+    while (not stack.empty()) {
         auto extraElem = stack.top();
         stack.pop();
         int idxExtraElem = extraElem.first;

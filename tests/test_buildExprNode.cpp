@@ -270,6 +270,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                         return nullptr;
                     },
                     {
+                     ExtraOperandException("a", 3),
                             ExtraOperandException("b", 2),
                             ExtraOperandException("c", 1)
 
