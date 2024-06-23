@@ -66,3 +66,6 @@ echo. > %testDir%\out_8.html
 
 :: Все операнды лишние
 %exePath% %testDir%\in_15.txt %testDir%\out_15.html > %testDir%\out_15.html 2>&1
+
+:: Файл не существует
+%exePath% %testDir%\non_existent_file.txt %testDir%\out_non_existent_file.html > %testDir%\out_non_existent_file.html 2>&1
