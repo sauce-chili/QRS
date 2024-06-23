@@ -54,7 +54,7 @@ ExprNode *ExprNodeBuilder::buildExprTree(string postfixExpr, list<Exception> &ex
         auto extraElem = stack.top();
         stack.pop();
         int idxExtraElem = extraElem.first;
-        string elemRepresentation = splitted.at(idxExtraElem);
+        string elemRepresentation = extraElem.second->toString(); //splitted.at(idxExtraElem);
         exps.push_back(ExtraOperandException(elemRepresentation, idxExtraElem + 1));
     }
 
