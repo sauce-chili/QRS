@@ -3,6 +3,7 @@
 ////
 
 #include "ArithmeticNode.h"
+#include "utils/Utils.h"
 
 bool CommutativeArithmeticNode::compareParameters(const ExprNode *other) {
     if (*this != *other) {
@@ -38,7 +39,7 @@ std::string ArrayArithmeticNode::toString() const {
     // Если leftOpr ссылается на операцию, добавляем скобки вокруг toString() вызова
 if (leftOpr->getNodeType() != EXPR_NODE_TYPE::ARR &&
         (dynamic_cast<BinaryOperation *>(leftOpr) || dynamic_cast<UnaryOperation *>(leftOpr))) {
-        result += BuilderUtil::wrapIn(wrapper, this->leftOpr->toString());
+        result += wrapIn(wrapper, this->leftOpr->toString());
     } else {
         result += this->leftOpr->toString();
     }
@@ -48,12 +49,12 @@ if (leftOpr->getNodeType() != EXPR_NODE_TYPE::ARR &&
     const std::string arrayWrapper[2] = {"[", "]"};
     // Проверяем, является ли rightOpr узлом типа ArrayArithmeticNode
     while (auto arrayNode = dynamic_cast<const ArrayArithmeticNode *>(rightNode)) {
-        result += BuilderUtil::wrapIn(arrayWrapper, arrayNode->leftOpr->toString());
+        result += wrapIn(arrayWrapper, arrayNode->leftOpr->toString());
         rightNode = arrayNode->rightOpr;
     }
 
     // Добавляем конечный индекс
-    result += BuilderUtil::wrapIn(arrayWrapper, rightNode->toString());
+    result += wrapIn(arrayWrapper, rightNode->toString());
     return result;
 }
 

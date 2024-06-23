@@ -54,8 +54,8 @@ std::string TruthTableGenerator::generateTable(ExprNode *root) {
     std::string table;
     table += createHeader(params);
     table += createRowsOfValues(root, countParameters);
-    table = BuilderUtil::wrapIn(TABLE_TAGS, table);
-    table = BuilderUtil::wrapIn(HTML_DOC_WRAPPER, table);
+    table = wrapIn(TABLE_TAGS, table);
+    table = wrapIn(HTML_DOC_WRAPPER, table);
 
     return table;
 }
@@ -69,13 +69,13 @@ std::string TruthTableGenerator::createHeader(std::vector<ExprNode *> &params) {
     }
     header += createCell("F");
 
-    header = BuilderUtil::wrapIn(ROW_TAGS, header);
+    header = wrapIn(ROW_TAGS, header);
 
     return header;
 }
 
 std::string TruthTableGenerator::createCell(const std::string &val) {
-    std::string cell = BuilderUtil::wrapIn(CELL_TAGS, val);
+    std::string cell = wrapIn(CELL_TAGS, val);
     return cell;
 }
 
@@ -103,7 +103,7 @@ std::string TruthTableGenerator::createRow(unsigned short args, int countColumns
 
     row += createCell(std::to_string(result));
 
-    row = BuilderUtil::wrapIn(ROW_TAGS, row);
+    row = wrapIn(ROW_TAGS, row);
 
     return row;
 }
