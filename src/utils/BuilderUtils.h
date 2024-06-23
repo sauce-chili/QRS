@@ -37,8 +37,7 @@ class BuilderUtil {
      * @brief Метод проверяет является переданный параметр @p str константой
      * @param[in] str проверяемая строка
      * @return true/false в зависимости от того является ли @p str константой
-     * @example
-     * Примеры констант: true/false; 32, 0xFA, 20.3, 20.3f, 25L, 1.04E+3
+     * @example Примеры_констант\n true/false; 32; 0xFA; 20.3; 20.3f; 25L; 1.04E+3
      * */
     static bool isConstantStr(const std::string &str);
 

@@ -49,9 +49,10 @@ public:
  * что при сравнение с другими коммутационными опециями проверяется коммутация корня выражения.
  * Коммутационными операциями являются:
  * @p EXPR_NODE_TYPE::MUL (*), @p EXPR_NODE_TYPE::PLUS (+),
- * @p EXPR_NODE_TYPE::XOR (^), @p EXPR_NODE_TYPE::EQ (==),@p EXPR_NODE_TYPE::NEQ (!=)
- * @example
- * Пример коммутационных операций:
+ * @p EXPR_NODE_TYPE::XOR (^), @p EXPR_NODE_TYPE::EQ (==),@p EXPR_NODE_TYPE::NEQ (!=) \n
+ *
+ * @example Коммутационных_операций
+ * Коммутационные операции:
  * a + b = b + a;
  * a * b = b * a;
  * a ^ b = b ^ a;
