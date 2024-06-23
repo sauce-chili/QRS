@@ -283,7 +283,7 @@ vector<BuildExprNodeTestParams> provideCommonTestCases() {
                     []() -> unique_ptr<ExprNode> {
                         return nullptr;
                     },
-                    {MissingOperand("-$", 1)}
+                    {MissingOperand("-", 1)}
             },
             // TEST 16
             {
