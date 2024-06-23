@@ -54,3 +54,15 @@ echo. > %testDir%\out_8.html
 
 :: Отсутствует требуемый для унарной операции операнд операнд
 %exePath% %testDir%\in_14.txt %testDir%\out_14.html > %testDir%\out_14.html 2>&1
+
+:: Встречена неизвестная последовательность
+%exePath% %testDir%\in_11.txt %testDir%\out_11.html > %testDir%\out_11.html 2>&1
+
+:: Превышение лимита параметров
+%exePath% %testDir%\in_12.txt %testDir%\out_12.html > %testDir%\out_12.html 2>&1
+
+:: Лишний операнд
+%exePath% %testDir%\in_13.txt %testDir%\out_13.html > %testDir%\out_13.html 2>&1
+
+:: Все операнды лишние
+%exePath% %testDir%\in_15.txt %testDir%\out_15.html > %testDir%\out_15.html 2>&1
